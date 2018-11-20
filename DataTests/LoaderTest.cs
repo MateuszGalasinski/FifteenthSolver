@@ -1,5 +1,6 @@
 ﻿using Data;
 using FluentAssertions;
+using Model;
 using NUnit.Framework;
 using System;
 using System.IO;
@@ -16,11 +17,11 @@ namespace DataTests
                 @"Resources\testFile.txt");
 
             Loader loader = new Loader();
-            GameData state = loader.LoadState(testFilePath);
+            Board state = loader.LoadState(testFilePath);
 
             state.XLength.Should().Be(4);
             state.YLength.Should().Be(4);
-            state.Board.Should().BeEquivalentTo(new int[][]
+            state.Fields.Should().BeEquivalentTo(new int[][]
             {
                 new int[] {0, 1, 2, 3 },
                 new int[] {4, 5, 6, 7 },
