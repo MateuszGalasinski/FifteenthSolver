@@ -29,7 +29,7 @@ namespace Data
                 string[] numbers = lines[1 + i].Split(' ');
                 for (int j = 0; j < xLength; j++)
                 {
-                    board[i][j] = Int32.Parse(numbers[i]);
+                    board[i][j] = Int32.Parse(numbers[j]);
                 }
             }
             return new GameData(xLength, yLength, board);

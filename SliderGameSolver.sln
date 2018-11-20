@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{8D18E41C-F160-48C6-9039-F1B3CC5A491E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTests", "DataTests\DataTests.csproj", "{F2B9C6A1-D002-4AD6-8567-16FA0340D507}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,9 +19,16 @@ Global
 		{DEE07DEF-F9BF-4CEA-9D6F-B0FC1566BCA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEE07DEF-F9BF-4CEA-9D6F-B0FC1566BCA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEE07DEF-F9BF-4CEA-9D6F-B0FC1566BCA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2B9C6A1-D002-4AD6-8567-16FA0340D507}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2B9C6A1-D002-4AD6-8567-16FA0340D507}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2B9C6A1-D002-4AD6-8567-16FA0340D507}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2B9C6A1-D002-4AD6-8567-16FA0340D507}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F2B9C6A1-D002-4AD6-8567-16FA0340D507} = {8D18E41C-F160-48C6-9039-F1B3CC5A491E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {919E5EC3-F24D-445D-A512-7C93EEA83CA1}
