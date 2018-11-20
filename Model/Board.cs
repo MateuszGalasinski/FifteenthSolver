@@ -17,6 +17,8 @@ namespace Model
             {
                 Fields[i] = new int[XLength];
             }
+
+            EmptyFieldIndex = (0, 0);
         }
 
         public Board(int xLength, int yLength, int[][] board)
@@ -110,6 +112,5 @@ namespace Model
                 }
             }
         }
-
     }
 }
