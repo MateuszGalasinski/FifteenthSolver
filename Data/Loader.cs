@@ -13,7 +13,6 @@ namespace Data
                 throw new ArgumentNullException(nameof(filePath));
             }
 
-            Console.WriteLine(filePath);
             string[] lines = File.ReadAllLines(filePath);
             string[] firstLineWords = lines[0].Split(' ');
             byte xLength = byte.Parse(firstLineWords[0]);

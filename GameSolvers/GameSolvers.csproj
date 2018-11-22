@@ -41,8 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BFTSolver.cs" />
-    <Compile Include="IGameSolver.cs" />
+    <Compile Include="Solution.cs" />
+    <Compile Include="Solvers\BaseSolver.cs" />
+    <Compile Include="Solvers\BFTSolver.cs" />
+    <Compile Include="Solvers\DFTSolver.cs" />
+    <Compile Include="Exceptions\InvalidBoardException.cs" />
+    <Compile Include="Solvers\IGameSolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

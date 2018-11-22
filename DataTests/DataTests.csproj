@@ -60,6 +60,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TestResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="WriterTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -77,6 +78,10 @@
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{dee07def-f9bf-4cea-9d6f-b0fc1566bca3}</Project>
       <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameSolvers\GameSolvers.csproj">
+      <Project>{AB7292B5-5835-43F3-92DE-41918F102E79}</Project>
+      <Name>GameSolvers</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{5B3DAD44-8652-4052-B00F-624F0118F1D9}</Project>

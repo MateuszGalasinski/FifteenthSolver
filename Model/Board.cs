@@ -6,6 +6,7 @@ namespace Model
     public class Board
     {
         public Board Parent { get; private set; }
+        public Direction LastMove { get; set; }
         public int XLength { get; }
         public int YLength { get; }
 
@@ -25,6 +26,11 @@ namespace Model
         public Board(int xLength, int yLength, int[][] board, Board parent) : this(xLength, yLength, board)
         {
             Parent = parent;
+        }
+
+        public Board(int xLength, int yLength, int[][] board, Board parent, Direction lastMove) : this(xLength, yLength, board, parent)
+        {
+            LastMove = lastMove;
         }
 
         public Board(int xLength, int yLength, int[][] board)
@@ -52,29 +58,29 @@ namespace Model
 
         public (int X, int Y) EmptyIndex { get; private set; }
 
-        public List<Directions> PossibleMoves
+        public List<Direction> PossibleMoves
         {
             get
             {
-                List<Directions> moves = new List<Directions>();
+                List<Direction> moves = new List<Direction>();
                 if (EmptyIndex.Y > 0)
                 {
-                    moves.Add(Directions.Top);
+                    moves.Add(Direction.Top);
                 }
 
                 if (EmptyIndex.Y < YLength - 1)
                 {
-                    moves.Add(Directions.Down);
+                    moves.Add(Direction.Down);
                 }
 
                 if (EmptyIndex.X > 0)
                 {
-                    moves.Add(Directions.Left);
+                    moves.Add(Direction.Left);
                 }
 
                 if (EmptyIndex.X < XLength - 1)
                 {
-                    moves.Add(Directions.Right);
+                    moves.Add(Direction.Right);
                 }
 
                 return moves;
@@ -109,7 +115,7 @@ namespace Model
         /// </summary>
         /// <param name="moveDirection">Direction of move that generate child board</param>
         /// <returns></returns>
-        public Board GenerateChild(Directions moveDirection)
+        public Board GenerateChild(Direction moveDirection)
         {
             Board child = Clone();
             child.MoveEmpty(moveDirection);
@@ -117,21 +123,21 @@ namespace Model
             return child;
         }
 
-        public void MoveEmpty(Directions direction)
+        public void MoveEmpty(Direction direction)
         {
             (int x, int y) newIndex;
             switch (direction)
             {
-                case Directions.Left:
+                case Direction.Left:
                     newIndex = (EmptyIndex.X - 1, EmptyIndex.Y);
                     break;
-                case Directions.Top:
+                case Direction.Top:
                     newIndex = (EmptyIndex.X, EmptyIndex.Y - 1);
                     break;
-                case Directions.Right:
+                case Direction.Right:
                     newIndex = (EmptyIndex.X + 1, EmptyIndex.Y);
                     break;
-                case Directions.Down:
+                case Direction.Down:
                     newIndex = (EmptyIndex.X, EmptyIndex.Y + 1);
                     break;
                 default:
@@ -139,6 +145,7 @@ namespace Model
             }
             SwapFields(EmptyIndex, newIndex);
             EmptyIndex = newIndex;
+            LastMove = direction;
         }
 
         public Board Clone()

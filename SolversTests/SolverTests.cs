@@ -1,23 +1,16 @@
 ﻿using FluentAssertions;
-using GameSolvers;
 using Model;
 using NUnit.Framework;
 
 namespace SolversTests
 {
-    public class BFTSolverTests
+    public class SolverTests : Given_GameSolver
     {
-        private BFTSolver _solver;
-
-        [SetUp]
-        public void Setup()
+        [TestCase("BFT")]
+        [TestCase("DFT")]
+        public void OneStep_ShouldBeSolved(string solverName)
         {
-            _solver = new BFTSolver();
-        }
-
-        [Test]
-        public void OneStep_ShouldBeSolved()
-        {
+            With_GameSolver(solverName);
             Board board = new Board(3, 3, new int[][]
             {
                 new int[] {1, 2, 3},
@@ -25,14 +18,16 @@ namespace SolversTests
                 new int[] {7, 0, 8},
             });
 
-            Board newBoard = _solver.Solve(board);
+            Board newBoard = Solver.Solve(board);
 
             newBoard.IsSolved().Should().BeTrue();
         }
 
-        [Test]
-        public void TwoSteps_ShouldBeSolved()
+        [TestCase("BFT")]
+        [TestCase("DFT")]
+        public void TwoSteps_ShouldBeSolved(string solverName)
         {
+            With_GameSolver(solverName);
             Board board = new Board(3, 3, new int[][]
             {
                 new int[] {1, 2, 3},
@@ -40,14 +35,16 @@ namespace SolversTests
                 new int[] {0, 7, 8},
             });
 
-            Board newBoard = _solver.Solve(board);
+            Board newBoard = Solver.Solve(board);
 
             newBoard.IsSolved().Should().BeTrue();
         }
 
-        [Test]
-        public void ManySteps_ShouldBeSolved()
+        [TestCase("BFT")]
+        [TestCase("DFT")]
+        public void ManySteps_ShouldBeSolved(string solverName)
         {
+            With_GameSolver(solverName);
             Board board = new Board(3, 3, new int[][]
             {
                 new int[] {1, 2, 3},
@@ -55,23 +52,25 @@ namespace SolversTests
                 new int[] {7, 8, 6},
             });
 
-            Board newBoard = _solver.Solve(board);
+            Board newBoard = Solver.Solve(board);
 
             newBoard.IsSolved().Should().BeTrue();
         }
 
-        [Test]
-        public void ManySteps_Size4_ShouldBeSolved()
+        [TestCase("BFT")]
+        [TestCase("DFT")]
+        public void ManySteps_Size4_ShouldBeSolved(string solverName)
         {
+            With_GameSolver(solverName);
             Board board = new Board(4, 4, new int[][]
             {
                 new int[] {1, 2, 3, 4},
-                new int[] {5, 6, 0, 8},
-                new int[] {9, 10, 7, 12},
-                new int[] {13, 14, 11, 15},
+                new int[] {5, 6, 7, 8},
+                new int[] {9, 10, 11, 12},
+                new int[] {0, 13, 14, 15},
             });
 
-            Board newBoard = _solver.Solve(board);
+            Board newBoard = Solver.Solve(board);
 
             newBoard.IsSolved().Should().BeTrue();
         }
