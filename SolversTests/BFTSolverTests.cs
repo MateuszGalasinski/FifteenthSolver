@@ -5,14 +5,14 @@ using NUnit.Framework;
 
 namespace SolversTests
 {
-    public class DFTSolverTests
+    public class BFTSolverTests
     {
-        private DFTSolver _solver;
+        private BFTSolver _solver;
 
         [SetUp]
         public void Setup()
         {
-            _solver = new DFTSolver();
+            _solver = new BFTSolver();
         }
 
         [Test]

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace GameSolvers
 {
-    public class DFTSolver
+    public class BFTSolver
     {
         private List<Directions> _searchOrder = new List<Directions>(){Directions.Right, Directions.Down, Directions.Left, Directions.Top};
         private Queue<Board> _solutionsToSearch = new Queue<Board>();
