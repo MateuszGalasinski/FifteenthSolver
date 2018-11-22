@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.IO;
 
 namespace Data
 {
     public class Loader
     {
-        public GameData LoadState(string filePath)
+        public Board LoadState(string filePath)
         {
             if (filePath == null)
             {
@@ -32,7 +33,7 @@ namespace Data
                     board[i][j] = Int32.Parse(numbers[j]);
                 }
             }
-            return new GameData(xLength, yLength, board);
+            return new Board(xLength, yLength, board);
         }
     }
 }

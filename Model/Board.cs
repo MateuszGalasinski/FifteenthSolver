@@ -1,0 +1,181 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace Model
+{
+    public class Board
+    {
+        public Board Parent { get; private set; }
+        public int XLength { get; }
+        public int YLength { get; }
+
+        public Board(int xLength, int yLength)
+        {
+            XLength = xLength;
+            YLength = yLength;
+            Fields = new int[YLength][];
+            for (int i = 0; i < YLength; i++)
+            {
+                Fields[i] = new int[XLength];
+            }
+
+            EmptyIndex = (0, 0);
+        }
+
+        public Board(int xLength, int yLength, int[][] board, Board parent) : this(xLength, yLength, board)
+        {
+            Parent = parent;
+        }
+
+        public Board(int xLength, int yLength, int[][] board)
+        {
+            XLength = xLength;
+            YLength = yLength;
+
+            ValidateBoardSize(board);
+
+            Fields = board ?? throw new ArgumentNullException(nameof(board));
+
+            for (int i = 0; i < YLength; i++)
+            {
+                for (int j = 0; j < XLength; j++)
+                {
+                    if (board[i][j] == 0)
+                    {
+                        EmptyIndex = (j, i);
+                    }
+                }
+            }
+        }
+
+        public int[][] Fields { get; set; }
+
+        public (int X, int Y) EmptyIndex { get; private set; }
+
+        public List<Directions> PossibleMoves
+        {
+            get
+            {
+                List<Directions> moves = new List<Directions>();
+                if (EmptyIndex.Y > 0)
+                {
+                    moves.Add(Directions.Top);
+                }
+
+                if (EmptyIndex.Y < YLength - 1)
+                {
+                    moves.Add(Directions.Down);
+                }
+
+                if (EmptyIndex.X > 0)
+                {
+                    moves.Add(Directions.Left);
+                }
+
+                if (EmptyIndex.X < XLength - 1)
+                {
+                    moves.Add(Directions.Right);
+                }
+
+                return moves;
+            }
+        }
+
+        public bool IsSolved()
+        {
+            for (int i = 0; i < YLength; i++)
+            {
+                for (int j = 0; j < XLength; j++)
+                {
+                    if (i == YLength - 1 && j == XLength - 1)
+                    {
+                        if (Fields[i][j] != 0)
+                            return false;
+                    }
+                    else
+                    {
+                        if (Fields[i][j] != j + i * XLength + 1)
+                            return false;
+                    }
+
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Generates new, cloned board with parent set to this object.
+        /// </summary>
+        /// <param name="moveDirection">Direction of move that generate child board</param>
+        /// <returns></returns>
+        public Board GenerateChild(Directions moveDirection)
+        {
+            Board child = Clone();
+            child.MoveEmpty(moveDirection);
+            child.Parent = this;
+            return child;
+        }
+
+        public void MoveEmpty(Directions direction)
+        {
+            (int x, int y) newIndex;
+            switch (direction)
+            {
+                case Directions.Left:
+                    newIndex = (EmptyIndex.X - 1, EmptyIndex.Y);
+                    break;
+                case Directions.Top:
+                    newIndex = (EmptyIndex.X, EmptyIndex.Y - 1);
+                    break;
+                case Directions.Right:
+                    newIndex = (EmptyIndex.X + 1, EmptyIndex.Y);
+                    break;
+                case Directions.Down:
+                    newIndex = (EmptyIndex.X, EmptyIndex.Y + 1);
+                    break;
+                default:
+                    throw new NotSupportedException($"Not implemented move direction: {direction}");
+            }
+            SwapFields(EmptyIndex, newIndex);
+            EmptyIndex = newIndex;
+        }
+
+        public Board Clone()
+        {
+            Board clone = new Board(XLength, YLength);
+            for (int i = 0; i < YLength; i++)
+            {
+                for (int j = 0; j < XLength; j++)
+                {
+                    clone.Fields[i][j] = Fields[i][j];
+                }
+            }
+
+            clone.EmptyIndex = EmptyIndex;
+            return clone;
+        }
+
+        private void SwapFields((int x, int y) first, (int x, int y) second)
+        {
+            int temp = Fields[first.y][first.x];
+            Fields[first.y][first.x] = Fields[second.y][second.x];
+            Fields[second.y][second.x] = temp;
+        }
+
+        private void ValidateBoardSize(int[][] board)
+        {
+            if (board.Length != YLength)
+            {
+                throw new ArgumentException("Invalid board Y length");
+            }
+            for (int i = 0; i < YLength; i++)
+            {
+                if (board[i].Length != XLength)
+                {
+                    throw new ArgumentException($"Invalid board X length at: {i}");
+                }
+            }
+        }
+    }
+}
