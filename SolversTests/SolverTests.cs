@@ -9,6 +9,7 @@ namespace SolversTests
         [TestCase("BFT")]
         [TestCase("DFT")]
         [TestCase("Manhattan")]
+        [TestCase("Hamming")]
         public void OneStep_ShouldBeSolved(string solverName)
         {
             With_GameSolver(solverName);
@@ -27,6 +28,7 @@ namespace SolversTests
         [TestCase("BFT")]
         [TestCase("DFT")]
         [TestCase("Manhattan")]
+        [TestCase("Hamming")]
         public void TwoSteps_ShouldBeSolved(string solverName)
         {
             With_GameSolver(solverName);
@@ -45,6 +47,7 @@ namespace SolversTests
         [TestCase("BFT")]
         [TestCase("DFT")]
         [TestCase("Manhattan")]
+        [TestCase("Hamming")]
         public void ManySteps_ShouldBeSolved(string solverName)
         {
             With_GameSolver(solverName);
@@ -63,6 +66,7 @@ namespace SolversTests
         [TestCase("BFT")]
         [TestCase("DFT")]
         [TestCase("Manhattan")]
+        [TestCase("Hamming")]
         public void ManySteps_Size4_ShouldBeSolved(string solverName)
         {
             With_GameSolver(solverName);

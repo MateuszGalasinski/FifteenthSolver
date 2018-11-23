@@ -48,6 +48,7 @@
     <Compile Include="Exceptions\InvalidBoardException.cs" />
     <Compile Include="Solvers\IGameSolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Solvers\HammingMetricSolver.cs" />
     <Compile Include="Solvers\ManhattanMetricSolver.cs" />
   </ItemGroup>
   <ItemGroup>
