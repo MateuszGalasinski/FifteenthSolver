@@ -31,16 +31,6 @@ namespace Model
         {
             unchecked
             {
-                //int hash = 17;
-                //for (int i = 0; i < obj.YLength; i++)
-                //{
-                //    for (int j = 0; j < obj.XLength; j++)
-                //    {
-                //        hash = hash * 31 + obj.Fields[i][j].GetHashCode();
-                //    }
-                //}
-                //return hash;
-
                 int p = 16777619;
                 long hash = 2166136261l;
 

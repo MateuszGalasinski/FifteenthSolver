@@ -23,6 +23,9 @@ namespace SolversTests
 
                         }, 30);
                     break;
+                case "Manhattan":
+                    Solver = new ManhattanMetricSolver();
+                    break;
             }
         }
     }

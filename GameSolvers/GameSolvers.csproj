@@ -48,12 +48,16 @@
     <Compile Include="Exceptions\InvalidBoardException.cs" />
     <Compile Include="Solvers\IGameSolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Solvers\ManhattanMetricSolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{5B3DAD44-8652-4052-B00F-624F0118F1D9}</Project>
       <Name>Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
