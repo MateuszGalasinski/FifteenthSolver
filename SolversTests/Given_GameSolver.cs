@@ -13,10 +13,10 @@ namespace SolversTests
             switch (solverName)
             {
                 case "BFT":
-                    Solver = new BFTSolver();
+                    Solver = new BFSSolver();
                     break;
                 case "DFT":
-                    Solver = new DFTSolver(
+                    Solver = new DFSSolver(
                         new List<Direction>()
                         {
                             Direction.Right, Direction.Down, Direction.Left, Direction.Top ,

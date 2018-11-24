@@ -43,8 +43,8 @@
   <ItemGroup>
     <Compile Include="Solution.cs" />
     <Compile Include="Solvers\BaseSolver.cs" />
-    <Compile Include="Solvers\BFTSolver.cs" />
-    <Compile Include="Solvers\DFTSolver.cs" />
+    <Compile Include="Solvers\BFSSolver.cs" />
+    <Compile Include="Solvers\DFSSolver.cs" />
     <Compile Include="Exceptions\InvalidBoardException.cs" />
     <Compile Include="Solvers\IGameSolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

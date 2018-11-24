@@ -14,7 +14,7 @@ namespace DataTests
         [Test]
         public void TestToRunWriter()
         {
-            DFTSolver Solver = new DFTSolver(
+            DFSSolver Solver = new DFSSolver(
                 new List<Direction>()
                 {
                     Direction.Right, Direction.Down, Direction.Left, Direction.Top ,

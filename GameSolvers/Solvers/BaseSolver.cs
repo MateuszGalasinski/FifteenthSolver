@@ -6,7 +6,7 @@ namespace GameSolvers.Solvers
     public abstract class BaseSolver : IGameSolver
     {
         protected List<Direction> SearchOrder = new List<Direction>() { Direction.Right, Direction.Down, Direction.Left, Direction.Top };
-        protected HashSet<Board> GeneratedBoards = new HashSet<Board>(new BoardValuesEqualityComparer());
+        protected HashSet<Board> CheckedBoards = new HashSet<Board>(new BoardValuesEqualityComparer());
         public Solution SolutionMetadata { get; set; } = new Solution();
         protected int MaxDepthSearch { get; set; } = 1;
         protected int CurrentDepthSearch { get; set; }
@@ -29,6 +29,8 @@ namespace GameSolvers.Solvers
                 {
                     break;
                 }
+
+                CheckedBoards.Add(current.board);
             }
 
             SolutionMetadata.Timer.Stop();
@@ -48,7 +50,6 @@ namespace GameSolvers.Solvers
         protected void Initialize(Board board, int depthSearch, out (Board board, int depth) current)
         {
             current = (board, depthSearch);
-            GeneratedBoards.Add(current.board);
             SolutionMetadata.VisitedStatesCounter++;
             SolutionMetadata.ProcessedStatesCounter++;
         }

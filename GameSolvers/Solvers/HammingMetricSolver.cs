@@ -20,16 +20,16 @@ namespace GameSolvers.Solvers
             foreach (var direction in current.board.PossibleMoves)
             {
                 Board newBoard = current.board.GenerateChild(direction);
-                if (!GeneratedBoards.Contains(newBoard))
-                {
-                    GeneratedBoards.Add(newBoard);
-                    _solutionsToSearch.Add(CalculatePriority(newBoard), (newBoard, CurrentDepthSearch));
-                }
+                _solutionsToSearch.Add(CalculatePriority(newBoard), (newBoard, CurrentDepthSearch));
             }
         }
 
         protected override (Board board, int depth) GetNextChild()
         {
+            while (CheckedBoards.Contains(_solutionsToSearch.First().Value.board))
+            {
+                _solutionsToSearch.RemoveAt(0);
+            }
             var first = _solutionsToSearch.First();
             _solutionsToSearch.RemoveAt(0);
             return first.Value;

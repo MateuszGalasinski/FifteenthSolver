@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace GameSolvers.Solvers
 {
-    public class DFTSolver : BaseSolver
+    public class DFSSolver : BaseSolver
     {
         private Stack<(Board board, int depth)> _solutionsToSearch = new Stack<(Board, int depth)>();
 
-        public DFTSolver(List<Direction> searchOrder, int maxDepthSearch)
+        public DFSSolver(List<Direction> searchOrder, int maxDepthSearch)
         {
             SearchOrder = searchOrder;
             SearchOrder.Reverse(); // adding to stack should go in reversed order
@@ -27,11 +27,7 @@ namespace GameSolvers.Solvers
                 foreach (var direction in current.board.PossibleMoves.OrderBy(d => SearchOrder.IndexOf(d))) //use possible moves in order given in _searchOrder
                 {
                     Board newBoard = current.board.GenerateChild(direction);
-                    if (!GeneratedBoards.Contains(newBoard))
-                    {
-                        GeneratedBoards.Add(newBoard);
-                        _solutionsToSearch.Push((newBoard, CurrentDepthSearch));
-                    }
+                    _solutionsToSearch.Push((newBoard, CurrentDepthSearch));
                 }
             }
         }
@@ -43,6 +39,10 @@ namespace GameSolvers.Solvers
 
         protected override (Board board, int depth) GetNextChild()
         {
+            while (CheckedBoards.Contains(_solutionsToSearch.Peek().board))
+            {
+                _solutionsToSearch.Pop();
+            }
             return _solutionsToSearch.Pop();
         }
     }
