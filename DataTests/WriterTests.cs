@@ -34,10 +34,13 @@ namespace DataTests
             newBoard.IsSolved().Should().BeTrue();
 
             Writer writer = new Writer();
-            string testFilePath = Path.Combine(
+            string solutionFilePath = Path.Combine(
                 Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName,
-                @"testResults.txt");
-            writer.WriteSolution(testFilePath, "", Solver.FoundSolutionMetadata);
+                @"testSolution.txt");
+            string additionalFilePath = Path.Combine(
+                Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName,
+                @"testAdditionalInfo.txt");
+            writer.WriteSolution(solutionFilePath, additionalFilePath, Solver.SolutionMetadata);
         }
     }
 }

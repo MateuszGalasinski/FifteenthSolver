@@ -17,6 +17,7 @@ namespace Data
                 currentBoard = currentBoard.Parent;
             }
 
+            //write solution file
             using (StreamWriter writer = new StreamWriter(solutionFilePath))
             {
                 writer.WriteLine(solution.Length);
@@ -25,6 +26,16 @@ namespace Data
                 {
                     writer.Write($"{moves.Pop()} ");
                 }
+            }
+
+            //write additional info file
+            using (StreamWriter writer = new StreamWriter(additionalInfoPath))
+            {
+                writer.WriteLine(solution.Length);
+                writer.WriteLine(solution.VisitedStatesCounter);
+                writer.WriteLine(solution.ProcessedStatesCounter);
+                writer.WriteLine(solution.MaxRecursion);
+                writer.WriteLine(solution.Timer.ElapsedMilliseconds);
             }
         }
     }

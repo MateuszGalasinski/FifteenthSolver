@@ -22,7 +22,7 @@ namespace GameSolvers.Solvers
             if (CurrentDepthSearch < MaxDepthSearch)
             {
                 CurrentDepthSearch++;
-                FoundSolutionMetadata.MaxRecursion = Math.Max(FoundSolutionMetadata.MaxRecursion, CurrentDepthSearch);
+                SolutionMetadata.MaxRecursion = Math.Max(SolutionMetadata.MaxRecursion, CurrentDepthSearch);
 
                 foreach (var direction in current.board.PossibleMoves.OrderBy(d => SearchOrder.IndexOf(d))) //use possible moves in order given in _searchOrder
                 {

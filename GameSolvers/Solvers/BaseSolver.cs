@@ -7,11 +7,12 @@ namespace GameSolvers.Solvers
     {
         protected List<Direction> SearchOrder = new List<Direction>() { Direction.Right, Direction.Down, Direction.Left, Direction.Top };
         protected HashSet<Board> GeneratedBoards = new HashSet<Board>(new BoardValuesEqualityComparer());
-        public Solution FoundSolutionMetadata { get; set; } = new Solution();
+        public Solution SolutionMetadata { get; set; } = new Solution();
         protected int MaxDepthSearch { get; set; } = 1;
         protected int CurrentDepthSearch { get; set; }
         public Board Solve(Board board)
         {
+            SolutionMetadata.Timer.Start();
             CurrentDepthSearch = 0;
             Initialize(board, CurrentDepthSearch, out (Board board, int depth) current);
 
@@ -22,7 +23,7 @@ namespace GameSolvers.Solvers
                 if (HasRemainingChild())
                 {
                     current = GetNextChild();
-                    FoundSolutionMetadata.ProcessedStatesCounter++;
+                    SolutionMetadata.ProcessedStatesCounter++;
                 }
                 else
                 {
@@ -30,9 +31,10 @@ namespace GameSolvers.Solvers
                 }
             }
 
-            FoundSolutionMetadata.MaxRecursion = CurrentDepthSearch;
-            FoundSolutionMetadata.Length = current.depth;
-            FoundSolutionMetadata.EndBoard = current.board;
+            SolutionMetadata.Timer.Stop();
+            SolutionMetadata.MaxRecursion = CurrentDepthSearch;
+            SolutionMetadata.Length = current.depth;
+            SolutionMetadata.EndBoard = current.board;
 
             return current.board;
         }
@@ -47,8 +49,8 @@ namespace GameSolvers.Solvers
         {
             current = (board, depthSearch);
             GeneratedBoards.Add(current.board);
-            FoundSolutionMetadata.VisitedStatesCounter++;
-            FoundSolutionMetadata.ProcessedStatesCounter++;
+            SolutionMetadata.VisitedStatesCounter++;
+            SolutionMetadata.ProcessedStatesCounter++;
         }
     }
 }

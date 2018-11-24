@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using System.Diagnostics;
+using Model;
 
 namespace GameSolvers
 {
@@ -9,5 +10,6 @@ namespace GameSolvers
         public int ProcessedStatesCounter { get; set; }
         public int VisitedStatesCounter { get; set; }
         public int MaxRecursion { get; set; }
+        public Stopwatch Timer { get; set; } = new Stopwatch();
     }
 }
