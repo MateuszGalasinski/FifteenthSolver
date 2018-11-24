@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Model;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace BoardTests
 {
@@ -113,8 +114,8 @@ namespace BoardTests
                     new int[] {4, 6, 0},
                     new int[] {7, 8, 5},
                 },
-                board)
-                { LastMove = Direction.Right });
+                board,
+                new List<Direction> { Direction.Right }));
         }
 
         [Test]
@@ -138,8 +139,8 @@ namespace BoardTests
                     new int[] {0, 4, 6},
                     new int[] {7, 8, 5},
                 },
-                board)
-                { LastMove = Direction.Left });
+                board,
+                new List<Direction> { Direction.Left }));
         }
 
         [Test]
@@ -163,8 +164,8 @@ namespace BoardTests
                     new int[] {4, 2, 6},
                     new int[] {7, 8, 5},
                 },
-                board)
-                { LastMove = Direction.Top });
+                board,
+                new List<Direction> { Direction.Top }));
         }
 
         [Test]
@@ -188,7 +189,8 @@ namespace BoardTests
                     new int[] {4, 8, 6},
                     new int[] {7, 0, 5},
                 },
-                board) {LastMove = Direction.Down});
+                board,
+                new List<Direction> { Direction.Down }));
         }
 
         [Test]
@@ -212,8 +214,8 @@ namespace BoardTests
                     new int[] {4, 5, 0},
                     new int[] {7, 8, 1},
                 },
-                board)
-                { LastMove = Direction.Down });
+                board,
+                new List<Direction> { Direction.Down }));
         }
 
         [Test]
@@ -237,8 +239,8 @@ namespace BoardTests
                     new int[] {4, 5, 6},
                     new int[] {7, 8, 1},
                 },
-                board)
-                { LastMove = Direction.Left });
+                board,
+                new List<Direction> { Direction.Left }));
         }
 
         [Test]
@@ -262,8 +264,8 @@ namespace BoardTests
                     new int[] {4, 0, 5},
                     new int[] {7, 8, 1},
                 },
-                board)
-                { LastMove = Direction.Left });
+                board,
+                new List<Direction> { Direction.Left }));
         }
 
 
@@ -288,8 +290,8 @@ namespace BoardTests
                     new int[] {4, 5, 1},
                     new int[] {7, 8, 0},
                 },
-                board)
-                { LastMove = Direction.Down });
+                board,
+                new List<Direction> { Direction.Down }));
         }
 
 
@@ -314,8 +316,8 @@ namespace BoardTests
                     new int[] {4, 5, 6},
                     new int[] {7, 8, 1},
                 },
-                board)
-                { LastMove = Direction.Top });
+                board,
+                new List<Direction> { Direction.Top }));
         }
     }
 }

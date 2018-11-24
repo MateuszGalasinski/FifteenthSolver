@@ -5,28 +5,27 @@ using System.Linq;
 
 namespace GameSolvers.Solvers
 {
-
     public class HammingMetricSolver : BaseSolver
     {
-        private readonly SortedList<int, (Board board, int depth)> _solutionsToSearch = new SortedList<int, (Board, int depth)>(new DuplicateKeyComparer<int>());
+        private readonly SortedList<int, Board> _solutionsToSearch = new SortedList<int, Board>(new DuplicateKeyComparer<int>());
 
         protected override bool HasRemainingChild()
         {
             return _solutionsToSearch.Count != 0;
         }
 
-        protected override void AddChildren((Board board, int depth) current)
+        protected override void AddChildren(Board current)
         {
-            foreach (var direction in current.board.PossibleMoves)
+            foreach (var direction in current.PossibleMoves)
             {
-                Board newBoard = current.board.GenerateChild(direction);
-                _solutionsToSearch.Add(CalculatePriority(newBoard), (newBoard, CurrentDepthSearch));
+                Board newBoard = current.GenerateChild(direction);
+                _solutionsToSearch.Add(CalculatePriority(newBoard), newBoard);
             }
         }
 
-        protected override (Board board, int depth) GetNextChild()
+        protected override Board GetNextChild()
         {
-            while (CheckedBoards.Contains(_solutionsToSearch.First().Value.board))
+            while (CheckedBoards.Contains(_solutionsToSearch.First().Value))
             {
                 _solutionsToSearch.RemoveAt(0);
             }

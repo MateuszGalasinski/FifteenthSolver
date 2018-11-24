@@ -7,51 +7,49 @@ namespace GameSolvers.Solvers
     {
         protected List<Direction> SearchOrder = new List<Direction>() { Direction.Right, Direction.Down, Direction.Left, Direction.Top };
         protected HashSet<Board> CheckedBoards = new HashSet<Board>(new BoardValuesEqualityComparer());
-        public Solution SolutionMetadata { get; set; } = new Solution();
+        public Solution Solution { get; set; } = new Solution();
         protected int MaxDepthSearch { get; set; } = 1;
         protected int CurrentDepthSearch { get; set; }
+
         public Board Solve(Board board)
         {
-            SolutionMetadata.Timer.Start();
-            CurrentDepthSearch = 0;
-            Initialize(board, CurrentDepthSearch, out (Board board, int depth) current);
+            Solution.Timer.Start();
+            Initialize(board, out Board current);
 
-            while (!current.board.IsSolved())
+            while (!current.IsSolved())
             {
+                CheckedBoards.Add(current);
                 AddChildren(current);
 
                 if (HasRemainingChild())
                 {
                     current = GetNextChild();
-                    SolutionMetadata.ProcessedStatesCounter++;
                 }
                 else
                 {
                     break;
                 }
-
-                CheckedBoards.Add(current.board);
             }
 
-            SolutionMetadata.Timer.Stop();
-            SolutionMetadata.MaxRecursion = CurrentDepthSearch;
-            SolutionMetadata.Length = current.depth;
-            SolutionMetadata.EndBoard = current.board;
+            Solution.ProcessedStatesCounter = CheckedBoards.Count;
+            Solution.MaxRecursion = CurrentDepthSearch;
+            Solution.Length = current.MovesHistory.Count;
+            Solution.EndBoard = current;
 
-            return current.board;
+            Solution.Timer.Stop();
+            return current;
         }
 
         protected abstract bool HasRemainingChild();
 
-        protected abstract void AddChildren((Board board, int depth) current);
+        protected abstract void AddChildren(Board current);
 
-        protected abstract (Board board, int depth) GetNextChild();
+        protected abstract Board GetNextChild();
 
-        protected void Initialize(Board board, int depthSearch, out (Board board, int depth) current)
+        protected void Initialize(Board board, out Board current)
         {
-            current = (board, depthSearch);
-            SolutionMetadata.VisitedStatesCounter++;
-            SolutionMetadata.ProcessedStatesCounter++;
+            current = board;
+            Solution.VisitedStatesCounter++;
         }
     }
 }

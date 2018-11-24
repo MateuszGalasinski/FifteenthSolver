@@ -6,25 +6,24 @@ namespace GameSolvers.Solvers
 {
     public class BFSSolver : BaseSolver
     {
-        private Queue<(Board board, int depth)> _solutionsToSearch = new Queue<(Board board, int depth)>();
+        private Queue<Board> _solutionsToSearch = new Queue<Board>();
 
         protected override bool HasRemainingChild()
         {
             return _solutionsToSearch.Count != 0;
         }
 
-        protected override void AddChildren((Board board, int depth) current)
+        protected override void AddChildren(Board current)
         {
-            foreach (var direction in current.board.PossibleMoves.OrderBy(d => SearchOrder.IndexOf(d))) //use possible moves in order given in _searchOrder
+            foreach (var direction in SearchOrder.Where(current.PossibleMoves.Contains))
             {
-                Board newBoard = current.board.GenerateChild(direction);
-                _solutionsToSearch.Enqueue((newBoard, CurrentDepthSearch));
+                _solutionsToSearch.Enqueue(current.GenerateChild(direction));
             }
         }
 
-        protected override (Board board, int depth) GetNextChild()
+        protected override Board GetNextChild()
         {
-            while (CheckedBoards.Contains(_solutionsToSearch.Peek().board))
+            while (CheckedBoards.Contains(_solutionsToSearch.Peek()))
             {
                 _solutionsToSearch.Dequeue();
             }

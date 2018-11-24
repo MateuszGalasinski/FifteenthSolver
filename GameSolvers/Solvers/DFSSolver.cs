@@ -7,7 +7,7 @@ namespace GameSolvers.Solvers
 {
     public class DFSSolver : BaseSolver
     {
-        private Stack<(Board board, int depth)> _solutionsToSearch = new Stack<(Board, int depth)>();
+        private Stack<Board> _solutionsToSearch = new Stack<Board>();
 
         public DFSSolver(List<Direction> searchOrder, int maxDepthSearch)
         {
@@ -17,17 +17,16 @@ namespace GameSolvers.Solvers
             MaxDepthSearch = maxDepthSearch;
         }
 
-        protected override void AddChildren((Board board, int depth) current)
+        protected override void AddChildren(Board current)
         {
             if (CurrentDepthSearch < MaxDepthSearch)
             {
                 CurrentDepthSearch++;
-                SolutionMetadata.MaxRecursion = Math.Max(SolutionMetadata.MaxRecursion, CurrentDepthSearch);
+                Solution.MaxRecursion = Math.Max(Solution.MaxRecursion, current.MovesHistory.Count);
 
-                foreach (var direction in current.board.PossibleMoves.OrderBy(d => SearchOrder.IndexOf(d))) //use possible moves in order given in _searchOrder
+                foreach (var direction in current.PossibleMoves.OrderBy(d => SearchOrder.IndexOf(d))) //use possible moves in order given in _searchOrder
                 {
-                    Board newBoard = current.board.GenerateChild(direction);
-                    _solutionsToSearch.Push((newBoard, CurrentDepthSearch));
+                    _solutionsToSearch.Push(current.GenerateChild(direction));
                 }
             }
         }
@@ -37,9 +36,9 @@ namespace GameSolvers.Solvers
             return _solutionsToSearch.Count != 0;
         }
 
-        protected override (Board board, int depth) GetNextChild()
+        protected override Board GetNextChild()
         {
-            while (CheckedBoards.Contains(_solutionsToSearch.Peek().board))
+            while (CheckedBoards.Contains(_solutionsToSearch.Peek()))
             {
                 _solutionsToSearch.Pop();
             }

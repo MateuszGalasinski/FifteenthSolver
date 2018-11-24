@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameSolvers", "GameSolvers\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolversTests", "SolversTests\SolversTests.csproj", "{B8F197A2-2B61-4F4E-800A-996E126B3DC1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolverConsoleApp", "SolverConsoleApp\SolverConsoleApp.csproj", "{38C79232-7CD0-4DE4-8CE7-0C92507D609B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{B8F197A2-2B61-4F4E-800A-996E126B3DC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8F197A2-2B61-4F4E-800A-996E126B3DC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8F197A2-2B61-4F4E-800A-996E126B3DC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38C79232-7CD0-4DE4-8CE7-0C92507D609B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38C79232-7CD0-4DE4-8CE7-0C92507D609B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38C79232-7CD0-4DE4-8CE7-0C92507D609B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38C79232-7CD0-4DE4-8CE7-0C92507D609B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

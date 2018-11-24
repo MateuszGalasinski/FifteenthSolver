@@ -5,8 +5,7 @@ namespace Model
 {
     public class Board
     {
-        public Board Parent { get; private set; }
-        public Direction LastMove { get; set; }
+        public List<Direction> MovesHistory { get; set; } = new List<Direction>();
         public int XLength { get; }
         public int YLength { get; }
 
@@ -23,14 +22,9 @@ namespace Model
             EmptyIndex = (0, 0);
         }
 
-        public Board(int xLength, int yLength, int[][] board, Board parent) : this(xLength, yLength, board)
+        public Board(int xLength, int yLength, int[][] board, Board parent, List<Direction> history) : this(xLength, yLength, board)
         {
-            Parent = parent;
-        }
-
-        public Board(int xLength, int yLength, int[][] board, Board parent, Direction lastMove) : this(xLength, yLength, board, parent)
-        {
-            LastMove = lastMove;
+            MovesHistory = history;
         }
 
         public Board(int xLength, int yLength, int[][] board)
@@ -119,7 +113,6 @@ namespace Model
         {
             Board child = Clone();
             child.MoveEmpty(moveDirection);
-            child.Parent = this;
             return child;
         }
 
@@ -145,7 +138,7 @@ namespace Model
             }
             SwapFields(EmptyIndex, newIndex);
             EmptyIndex = newIndex;
-            LastMove = direction;
+            MovesHistory.Add(direction);
         }
 
         public Board Clone()
@@ -160,6 +153,7 @@ namespace Model
             }
 
             clone.EmptyIndex = EmptyIndex;
+            clone.MovesHistory.AddRange(MovesHistory);
             return clone;
         }
 

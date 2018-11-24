@@ -40,7 +40,7 @@ namespace DataTests
             string additionalFilePath = Path.Combine(
                 Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName,
                 @"testAdditionalInfo.txt");
-            writer.WriteSolution(solutionFilePath, additionalFilePath, Solver.SolutionMetadata);
+            writer.WriteSolution(solutionFilePath, additionalFilePath, Solver.Solution);
         }
     }
 }

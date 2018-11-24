@@ -1,6 +1,4 @@
 ﻿using GameSolvers;
-using Model;
-using System.Collections.Generic;
 using System.IO;
 
 namespace Data
@@ -9,22 +7,14 @@ namespace Data
     {
         public void WriteSolution(string solutionFilePath, string additionalInfoPath, Solution solution)
         {
-            Stack<string> moves = new Stack<string>();
-            Board currentBoard = solution.EndBoard;
-            while (currentBoard.LastMove != Direction.Unknown)
-            {
-                moves.Push(currentBoard.LastMove.ToCharacterSign());
-                currentBoard = currentBoard.Parent;
-            }
 
             //write solution file
             using (StreamWriter writer = new StreamWriter(solutionFilePath))
             {
                 writer.WriteLine(solution.Length);
-
-                while (moves.Count != 0)
+                foreach (var move in solution.EndBoard.MovesHistory)
                 {
-                    writer.Write($"{moves.Pop()} ");
+                    writer.Write($"{move.ToCharacterSign()} ");
                 }
             }
 
