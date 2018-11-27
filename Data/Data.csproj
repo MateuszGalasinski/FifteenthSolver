@@ -12,6 +12,7 @@
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,10 +44,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DirectionsExtensions.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Writer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GameSolvers\GameSolvers.csproj">
+      <Project>{AB7292B5-5835-43F3-92DE-41918F102E79}</Project>
+      <Name>GameSolvers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{5B3DAD44-8652-4052-B00F-624F0118F1D9}</Project>
       <Name>Model</Name>

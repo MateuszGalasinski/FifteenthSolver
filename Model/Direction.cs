@@ -1,6 +1,6 @@
 ﻿namespace Model
 {
-    public enum Directions
+    public enum Direction
     {
         Unknown = 0,
         Left, 

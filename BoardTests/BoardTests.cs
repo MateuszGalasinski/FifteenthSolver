@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Model;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace BoardTests
 {
@@ -56,8 +57,8 @@ namespace BoardTests
             });
 
             board.PossibleMoves.Count.Should().Be(2);
-            board.PossibleMoves.Should().Contain(Directions.Left);
-            board.PossibleMoves.Should().Contain(Directions.Top);
+            board.PossibleMoves.Should().Contain(Direction.Left);
+            board.PossibleMoves.Should().Contain(Direction.Top);
         }
 
         [Test]
@@ -71,8 +72,8 @@ namespace BoardTests
             });
 
             board.PossibleMoves.Count.Should().Be(2);
-            board.PossibleMoves.Should().Contain(Directions.Down);
-            board.PossibleMoves.Should().Contain(Directions.Right);
+            board.PossibleMoves.Should().Contain(Direction.Down);
+            board.PossibleMoves.Should().Contain(Direction.Right);
         }
 
 
@@ -87,9 +88,9 @@ namespace BoardTests
             });
 
             board.PossibleMoves.Count.Should().Be(3);
-            board.PossibleMoves.Should().Contain(Directions.Left);
-            board.PossibleMoves.Should().Contain(Directions.Down);
-            board.PossibleMoves.Should().Contain(Directions.Right);
+            board.PossibleMoves.Should().Contain(Direction.Left);
+            board.PossibleMoves.Should().Contain(Direction.Down);
+            board.PossibleMoves.Should().Contain(Direction.Right);
         }
 
         [Test]
@@ -102,7 +103,7 @@ namespace BoardTests
                 new int[] {7, 8, 5},
             });
 
-            Board child = board.GenerateChild(Directions.Right);
+            Board child = board.GenerateChild(Direction.Right);
 
             child.Should().NotBeNull();
             child.Should().BeEquivalentTo(new Board(3,
@@ -113,7 +114,8 @@ namespace BoardTests
                     new int[] {4, 6, 0},
                     new int[] {7, 8, 5},
                 },
-                board));
+                board,
+                new List<Direction> { Direction.Right }));
         }
 
         [Test]
@@ -126,7 +128,7 @@ namespace BoardTests
                 new int[] {7, 8, 5},
             });
 
-            Board child = board.GenerateChild(Directions.Left);
+            Board child = board.GenerateChild(Direction.Left);
 
             child.Should().NotBeNull();
             child.Should().BeEquivalentTo(new Board(3,
@@ -137,7 +139,8 @@ namespace BoardTests
                     new int[] {0, 4, 6},
                     new int[] {7, 8, 5},
                 },
-                board));
+                board,
+                new List<Direction> { Direction.Left }));
         }
 
         [Test]
@@ -150,7 +153,7 @@ namespace BoardTests
                 new int[] {7, 8, 5},
             });
 
-            Board child = board.GenerateChild(Directions.Top);
+            Board child = board.GenerateChild(Direction.Top);
 
             child.Should().NotBeNull();
             child.Should().BeEquivalentTo(new Board(3,
@@ -161,7 +164,8 @@ namespace BoardTests
                     new int[] {4, 2, 6},
                     new int[] {7, 8, 5},
                 },
-                board));
+                board,
+                new List<Direction> { Direction.Top }));
         }
 
         [Test]
@@ -174,7 +178,7 @@ namespace BoardTests
                 new int[] {7, 8, 5},
             });
 
-            Board child = board.GenerateChild(Directions.Down);
+            Board child = board.GenerateChild(Direction.Down);
 
             child.Should().NotBeNull();
             child.Should().BeEquivalentTo(new Board(3,
@@ -185,7 +189,8 @@ namespace BoardTests
                     new int[] {4, 8, 6},
                     new int[] {7, 0, 5},
                 },
-                board));
+                board,
+                new List<Direction> { Direction.Down }));
         }
 
         [Test]
@@ -198,7 +203,7 @@ namespace BoardTests
                 new int[] {7, 8, 1},
             });
 
-            Board child = board.GenerateChild(Directions.Down);
+            Board child = board.GenerateChild(Direction.Down);
 
             child.Should().NotBeNull();
             child.Should().BeEquivalentTo(new Board(3,
@@ -209,7 +214,8 @@ namespace BoardTests
                     new int[] {4, 5, 0},
                     new int[] {7, 8, 1},
                 },
-                board));
+                board,
+                new List<Direction> { Direction.Down }));
         }
 
         [Test]
@@ -222,7 +228,7 @@ namespace BoardTests
                 new int[] {7, 8, 1},
             });
 
-            Board child = board.GenerateChild(Directions.Left);
+            Board child = board.GenerateChild(Direction.Left);
 
             child.Should().NotBeNull();
             child.Should().BeEquivalentTo(new Board(3,
@@ -233,7 +239,8 @@ namespace BoardTests
                     new int[] {4, 5, 6},
                     new int[] {7, 8, 1},
                 },
-                board));
+                board,
+                new List<Direction> { Direction.Left }));
         }
 
         [Test]
@@ -246,7 +253,7 @@ namespace BoardTests
                 new int[] {7, 8, 1},
             });
 
-            Board child = board.GenerateChild(Directions.Left);
+            Board child = board.GenerateChild(Direction.Left);
 
             child.Should().NotBeNull();
             child.Should().BeEquivalentTo(new Board(3,
@@ -257,7 +264,8 @@ namespace BoardTests
                     new int[] {4, 0, 5},
                     new int[] {7, 8, 1},
                 },
-                board));
+                board,
+                new List<Direction> { Direction.Left }));
         }
 
 
@@ -271,7 +279,7 @@ namespace BoardTests
                 new int[] {7, 8, 1},
             });
 
-            Board child = board.GenerateChild(Directions.Down);
+            Board child = board.GenerateChild(Direction.Down);
 
             child.Should().NotBeNull();
             child.Should().BeEquivalentTo(new Board(3,
@@ -282,7 +290,8 @@ namespace BoardTests
                     new int[] {4, 5, 1},
                     new int[] {7, 8, 0},
                 },
-                board));
+                board,
+                new List<Direction> { Direction.Down }));
         }
 
 
@@ -296,7 +305,7 @@ namespace BoardTests
                 new int[] {7, 8, 1},
             });
 
-            Board child = board.GenerateChild(Directions.Top);
+            Board child = board.GenerateChild(Direction.Top);
 
             child.Should().NotBeNull();
             child.Should().BeEquivalentTo(new Board(3,
@@ -307,7 +316,8 @@ namespace BoardTests
                     new int[] {4, 5, 6},
                     new int[] {7, 8, 1},
                 },
-                board));
+                board,
+                new List<Direction> { Direction.Top }));
         }
     }
 }
