@@ -50,7 +50,7 @@ namespace Model
 
         public int[][] Fields { get; set; }
 
-        public (int X, int Y) EmptyIndex { get; private set; }
+        public (int X, int Y) EmptyIndex { get; set; }
 
         public List<Direction> PossibleMoves
         {

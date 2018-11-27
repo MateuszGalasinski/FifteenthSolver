@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GameSolvers</RootNamespace>
     <AssemblyName>GameSolvers</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -42,9 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\DirectionExtensions.cs" />
     <Compile Include="Solution.cs" />
     <Compile Include="Solvers\BaseSolver.cs" />
     <Compile Include="Solvers\BFSSolver.cs" />
+    <Compile Include="Solvers\Bidirectional\BidirectionalBaseSolver.cs" />
+    <Compile Include="Solvers\Bidirectional\IStrategy.cs" />
+    <Compile Include="Solvers\Bidirectional\ManhattanMetricStrategy.cs" />
     <Compile Include="Solvers\DFSSolver.cs" />
     <Compile Include="Exceptions\InvalidBoardException.cs" />
     <Compile Include="Solvers\IGameSolver.cs" />
@@ -61,5 +65,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

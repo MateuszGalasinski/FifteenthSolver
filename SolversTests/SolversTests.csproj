@@ -11,7 +11,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SolversTests</RootNamespace>
     <AssemblyName>SolversTests</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
@@ -52,6 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BidirectionalSolver\Given_BidirectionalGameSolver.cs" />
+    <Compile Include="BidirectionalSolver\SolverTests.cs" />
     <Compile Include="SolverTests.cs" />
     <Compile Include="Given_GameSolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
