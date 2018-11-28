@@ -78,7 +78,19 @@ function RunAstr([string]$heuristic) {
 
 function RunBD() {
     Write-Host '===> Strategy: bidirectional two DFS <==='
-     RunProg 'bd' 'dfs' 'RDUL' 'dfs' 'RDUL'
+     RunBDForEach 'bd' 'bfs RDUL dfs RDUL'
+}
+
+function RunBDForEach([string]$strategy, [string]$param) {
+    Get-ChildItem -File | Where-Object { $_.Name -match $InitFilenameRegex } | ForEach-Object {
+		$fullParam = $param
+		$fileNamePart = $param -replace '\s',''
+        $FilenameRoot = '{0}_{1}_{2}' -f $_.BaseName, $strategy, $fileNamePart.ToLower()
+        $SolFilename = '{0}_sol.txt' -f $FilenameRoot
+        $StatsFilename = '{0}_stats.txt' -f $FilenameRoot
+        Invoke-Expression $('{0} {1} {2} {3} {4} {5}' -f $Progcmd, $strategy, $fullParam, $_.Name, $SolFilename,
+                            $StatsFilename)
+    }
 }
 
 function RunAll() {

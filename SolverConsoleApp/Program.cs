@@ -33,7 +33,7 @@ namespace SolverConsoleApp
         {
             if (args.Length != 5 && args.Length != 8)
             {
-                throw new ArgumentException($"There should be 5 or 8 parameters, but found: {args.Length}");
+                throw new ArgumentException($"There should be 5 or 8 parameters, but found: {args.Length}.\n {args.ToList().Aggregate((p, q) => p + " " + q)} \n");
             }
 
             AppParameters resultParameters = new AppParameters();
@@ -54,7 +54,7 @@ namespace SolverConsoleApp
         {
             if (!Enum.TryParse(args[index].ToUpperInvariant(), out StrategyType type))
             {
-                throw new ArgumentException("Could not parse strategy type.");
+                throw new ArgumentException($"Could not parse strategy type.\n ---> {args[index]} \n");
             }
             resultParameters.StrategyTypes.Add(type);
             index++;
@@ -69,7 +69,7 @@ namespace SolverConsoleApp
             {
                 if (!Enum.TryParse(args[index].ToUpperInvariant(), out MetricType metric))
                 {
-                    throw new ArgumentException("Could not parse metric type.");
+                    throw new ArgumentException($"Could not parse metric type. \n ---> {args[index]} \n");
                 }
 
                 resultParameters.MetricTypes.Add(metric);
@@ -93,8 +93,8 @@ namespace SolverConsoleApp
         {
             if (!Enum.TryParse(args[index].ToUpperInvariant(), out StrategyType strategy))
             {
-                throw new ArgumentException("Could not parse metric type.");
-            }
+                throw new ArgumentException($"Could not parse metric type. \n ---> {args[index]} \n");
+            } 
             resultParameters.StrategyTypes.Add(strategy);
             index++;
 
@@ -102,7 +102,7 @@ namespace SolverConsoleApp
             {
                 if (!Enum.TryParse(args[index].ToUpperInvariant(), out MetricType firstMetric))
                 {
-                    throw new ArgumentException("Could not parse metric type.");
+                    throw new ArgumentException($"Could not parse metric type. \n ---> {args[index]} \n");
                 }
                 resultParameters.MetricTypes.Add(firstMetric);
                 index++;
