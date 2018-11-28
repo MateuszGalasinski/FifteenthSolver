@@ -12,7 +12,7 @@ namespace SolverConsoleApp
         static void Main(string[] args)
         {
             AppParameters parameters = ParseParameters(args);
-
+            Console.WriteLine($"Run with solution filepath: {parameters.SolutionFilePath}");
             Loader loader = new Loader();
             Board board = loader.LoadState(parameters.StartFilePath);
             IGameSolver solver = GetSolver(parameters);
@@ -42,7 +42,7 @@ namespace SolverConsoleApp
             MetricType metric;
             if (type == StrategyType.ASTR)
             {
-                if (!Enum.TryParse(args[index].ToLowerInvariant(), out metric))
+                if (!Enum.TryParse(args[index].ToUpperInvariant(), out metric))
                 {
                     throw new ArgumentException("Could not parse metric type.");
                 }   
@@ -97,11 +97,11 @@ namespace SolverConsoleApp
                 case StrategyType.BFS:
                     return new BFSSolver();
                 case StrategyType.ASTR:
-                    if (parameters.MetricType == MetricType.Hamming)
+                    if (parameters.MetricType == MetricType.HAMM)
                     {
                         return new HammingMetricSolver();
                     }
-                    if (parameters.MetricType == MetricType.Manhattan)
+                    if (parameters.MetricType == MetricType.MANH)
                     {
                         return new ManhattanMetricSolver();
                     }

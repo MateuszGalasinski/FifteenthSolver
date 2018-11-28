@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolversTests", "SolversTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolverConsoleApp", "SolverConsoleApp\SolverConsoleApp.csproj", "{38C79232-7CD0-4DE4-8CE7-0C92507D609B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardsGeneration", "BoardsGeneration\BoardsGeneration.csproj", "{C6D04D49-EABB-4227-B3E6-397342C2CB7A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{38C79232-7CD0-4DE4-8CE7-0C92507D609B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38C79232-7CD0-4DE4-8CE7-0C92507D609B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38C79232-7CD0-4DE4-8CE7-0C92507D609B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6D04D49-EABB-4227-B3E6-397342C2CB7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6D04D49-EABB-4227-B3E6-397342C2CB7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6D04D49-EABB-4227-B3E6-397342C2CB7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6D04D49-EABB-4227-B3E6-397342C2CB7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
