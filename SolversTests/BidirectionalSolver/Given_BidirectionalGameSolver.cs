@@ -3,6 +3,7 @@ using GameSolvers.Solvers.Bidirectional;
 using GameSolvers.Solvers.Bidirectional.Strategies;
 using Model;
 using System.Collections.Generic;
+using GameSolvers.Solvers.Metrics;
 
 namespace SolversTests.BidirectionalSolver
 {
@@ -15,7 +16,7 @@ namespace SolversTests.BidirectionalSolver
             switch (solverName)
             {
                 case "Manhattan":
-                    Solver = new BidirectionalBaseSolver(new ManhattanMetricStrategy(), new ManhattanMetricStrategy());
+                    Solver = new BidirectionalBaseSolver(new MetricStrategy(new ManhattanMetricCalculator()), new MetricStrategy(new ManhattanMetricCalculator()));
                     break;
                 case "BFS":
                     Solver = new BidirectionalBaseSolver(

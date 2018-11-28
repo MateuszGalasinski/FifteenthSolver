@@ -54,6 +54,8 @@
   <ItemGroup>
     <Compile Include="BidirectionalSolver\Given_BidirectionalGameSolver.cs" />
     <Compile Include="BidirectionalSolver\SolverTests.cs" />
+    <Compile Include="GivenCalculator\GivenCalculator.cs" />
+    <Compile Include="GivenCalculator\WhenCalculate.cs" />
     <Compile Include="SolverTests.cs" />
     <Compile Include="Given_GameSolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

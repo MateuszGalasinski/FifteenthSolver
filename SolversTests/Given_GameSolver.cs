@@ -1,5 +1,6 @@
 ﻿using GameSolvers.Solvers;
 using GameSolvers.Solvers.Base;
+using GameSolvers.Solvers.Metrics;
 using Model;
 using System.Collections.Generic;
 
@@ -29,10 +30,10 @@ namespace SolversTests
                         }, 30);
                     break;
                 case "Manhattan":
-                    Solver = new ManhattanMetricSolver();
+                    Solver = new MetricSolver(new ManhattanMetricCalculator());
                     break;
                 case "Hamming":
-                    Solver = new HammingMetricSolver();
+                    Solver = new MetricSolver(new HammingMetricCalculator());
                     break;
             }
         }

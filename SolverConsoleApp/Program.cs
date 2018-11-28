@@ -2,6 +2,7 @@
 using GameSolvers;
 using GameSolvers.Solvers;
 using GameSolvers.Solvers.Base;
+using GameSolvers.Solvers.Metrics;
 using Model;
 using SolverConsoleApp.Models;
 using System;
@@ -101,11 +102,11 @@ namespace SolverConsoleApp
                 case StrategyType.ASTR:
                     if (parameters.MetricType == MetricType.HAMM)
                     {
-                        return new HammingMetricSolver();
+                        return new MetricSolver(new HammingMetricCalculator());
                     }
                     if (parameters.MetricType == MetricType.MANH)
                     {
-                        return new ManhattanMetricSolver();
+                        return new MetricSolver(new ManhattanMetricCalculator());
                     }
                     throw new ArgumentException("Invalid metric type");
                 default:
