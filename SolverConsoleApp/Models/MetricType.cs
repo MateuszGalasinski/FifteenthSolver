@@ -2,7 +2,7 @@
 {
     public enum MetricType
     {
-        Hamming,
-        Manhattan
+        HAMM,
+        MANH
     }
 }
