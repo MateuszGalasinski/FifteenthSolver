@@ -11,17 +11,31 @@ namespace Data
             //write solution file
             using (StreamWriter writer = new StreamWriter(solutionFilePath))
             {
-                writer.WriteLine(solution.Moves.Count);
-                foreach (var move in solution.Moves)
+                if (solution.IsSolved)
                 {
-                    writer.Write($"{move.ToCharacterSign()} ");
+                    writer.WriteLine(solution.Moves.Count);
+                    foreach (var move in solution.Moves)
+                    {
+                        writer.Write($"{move.ToCharacterSign()} ");
+                    }
                 }
+                else
+                {
+                    writer.WriteLine("-1");
+                }   
             }
 
             //write additional info file
             using (StreamWriter writer = new StreamWriter(additionalInfoPath))
             {
-                writer.WriteLine(solution.Moves.Count);
+                if (solution.IsSolved)
+                {
+                    writer.WriteLine(solution.Moves.Count);
+                }
+                else
+                {
+                    writer.WriteLine("-1");
+                }
                 writer.WriteLine(solution.VisitedStatesCounter);
                 writer.WriteLine(solution.ProcessedStatesCounter);
                 writer.WriteLine(solution.MaxRecursion);

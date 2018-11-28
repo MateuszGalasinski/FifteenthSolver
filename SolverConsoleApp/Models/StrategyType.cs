@@ -4,6 +4,7 @@
     {
         BFS,
         DFS,
-        ASTR
+        ASTR,
+        BD
     }
 }

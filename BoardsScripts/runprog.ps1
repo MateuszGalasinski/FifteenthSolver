@@ -1,4 +1,4 @@
-# Run a program supposed to solve the 15-puzzle in a batch mode using various
+﻿# Run a program supposed to solve the 15-puzzle in a batch mode using various
 # strategies for searching the state space and applying them to all the initial
 # states of the puzzle stored in files in the current directory.
 #
@@ -23,7 +23,7 @@
 
 param([string]$strategy, [string]$param)
 
-$Progcmd = 'C:\Users\Mateusz.Galasinski\source\repos\FifteenthSolver\SolverConsoleApp\bin\Release\SolverConsoleApp.exe'
+$Progcmd = '..\SolverConsoleApp\bin\Release\SolverConsoleApp.exe'
 $Orders = @('RDUL', 'RDLU', 'DRUL', 'DRLU', 'LUDR',  'LURD', 'ULDR', 'ULRD')
 $Heuristics = @('hamm', 'manh')
 $InitFilenameRegex = '^[a-zA-Z0-9]+_[0-9]+_[0-9]+.txt$'
@@ -76,6 +76,11 @@ function RunAstr([string]$heuristic) {
     }
 }
 
+function RunBD() {
+    Write-Host '===> Strategy: bidirectional two DFS <==='
+     RunProg 'bd' 'dfs' 'RDUL' 'dfs' 'RDUL'
+}
+
 function RunAll() {
     RunBfs
     RunDfs
@@ -96,6 +101,7 @@ if (!$PSBoundParameters.ContainsKey('strategy')) {
         'bfs'  { RunBfs $param }
         'dfs'  { RunDfs $param }
         'astr' { RunAstr $param }
+		'bd'   { RunBD			}
         default {
             Write-Error $("Unrecognized strategy: '{0}'." -f $strategy)
             exit 1

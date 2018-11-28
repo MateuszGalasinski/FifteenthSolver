@@ -1,4 +1,5 @@
 ﻿using GameSolvers.Extensions;
+using GameSolvers.Solvers.Base;
 using GameSolvers.Solvers.Bidirectional.Strategies.Base;
 using Model;
 using System;
@@ -6,11 +7,12 @@ using System.Collections.Generic;
 
 namespace GameSolvers.Solvers.Bidirectional
 {
-    public class BidirectionalBaseSolver
+    public class BidirectionalBaseSolver : IGameSolver
     {
         private readonly IStrategy _forwardSolverStrategy;
         private readonly IStrategy _backwardSolverStrategy;
-        private bool _areBothTreesExpandable = true;
+        private bool _isForwardTreeExpandable = true;
+        private bool _isBackwardTreeExpandable = true;
 
         public BidirectionalBaseSolver(IStrategy forwardSolverStrategy, IStrategy backwardSolverStrategy)
         {
@@ -34,40 +36,42 @@ namespace GameSolvers.Solvers.Bidirectional
             Board backwardBoard = GenerateSolvedBoard(forwardBoard.YLength, forwardBoard.XLength);
             while (true)
             {
-                //move forward tree
-                _forwardSolverStrategy.CheckedBoards.Add(forwardBoard);
-                _forwardSolverStrategy.AddChildren(forwardBoard);
-                if (_forwardSolverStrategy.HasRemainingChild())
+                if (_isForwardTreeExpandable)   //move forward tree
                 {
-                    forwardBoard = _forwardSolverStrategy.GetNextChild();
-                }
-                else
-                {
-                    if (_areBothTreesExpandable)
-                        _areBothTreesExpandable = false;
+                    _forwardSolverStrategy.CheckedBoards.Add(forwardBoard);
+                    _forwardSolverStrategy.AddChildren(forwardBoard);
+                    if (_forwardSolverStrategy.HasRemainingChild())
+                    {
+                        forwardBoard = _forwardSolverStrategy.GetNextChild();
+                    }
                     else
                     {
-                        Solution.IsSolved = false;
-                        break;
+                        _isForwardTreeExpandable = false;
+                        if (!_isBackwardTreeExpandable)
+                        {
+                            Solution.IsSolved = false;
+                            break;
+                        }
                     }
                 }
 
-                //move backward tree
-                _backwardSolverStrategy.CheckedBoards.Add(backwardBoard);
-                _backwardSolverStrategy.AddChildren(backwardBoard);
+                if (_isBackwardTreeExpandable) // move backward treee
+                {
+                    _backwardSolverStrategy.CheckedBoards.Add(backwardBoard);
+                    _backwardSolverStrategy.AddChildren(backwardBoard);
 
-                if (_backwardSolverStrategy.HasRemainingChild())
-                {
-                    backwardBoard = _backwardSolverStrategy.GetNextChild();
-                }
-                else
-                {
-                    if (_areBothTreesExpandable)
-                        _areBothTreesExpandable = false;
+                    if (_backwardSolverStrategy.HasRemainingChild())
+                    {
+                        backwardBoard = _backwardSolverStrategy.GetNextChild();
+                    }
                     else
                     {
-                        Solution.IsSolved = false;
-                        break;
+                        _isBackwardTreeExpandable = false;
+                        if (!_isForwardTreeExpandable)
+                        {
+                            Solution.IsSolved = false;
+                            break;
+                        }
                     }
                 }
 
@@ -87,7 +91,8 @@ namespace GameSolvers.Solvers.Bidirectional
                     break;
                 }
             }
-            Solution.Timer.Stop();
+
+            SaveMetadata();
             return Solution;
         }
 
@@ -100,16 +105,17 @@ namespace GameSolvers.Solvers.Bidirectional
                 solutionMoves.Add(direction.OppositeDirection());
             }
 
-            SaveMetadata(solutionMoves);
+            Solution.Moves = solutionMoves;
+            Solution.IsSolved = true;
         }
 
-        private void SaveMetadata(List<Direction> solutionMoves)
+        private void SaveMetadata()
         {
             Solution.ProcessedStatesCounter = _forwardSolverStrategy.CheckedBoards.Count + _backwardSolverStrategy.CheckedBoards.Count;
             Solution.VisitedStatesCounter = Solution.ProcessedStatesCounter +
                                             _forwardSolverStrategy.RemainingCount +
                                             _backwardSolverStrategy.RemainingCount;
-            Solution.Moves = solutionMoves;
+            Solution.Timer.Stop();
         }
 
         private Board GenerateSolvedBoard(int yLength, int xLength)
