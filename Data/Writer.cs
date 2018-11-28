@@ -11,8 +11,8 @@ namespace Data
             //write solution file
             using (StreamWriter writer = new StreamWriter(solutionFilePath))
             {
-                writer.WriteLine(solution.Length);
-                foreach (var move in solution.EndBoard.MovesHistory)
+                writer.WriteLine(solution.Moves.Count);
+                foreach (var move in solution.Moves)
                 {
                     writer.Write($"{move.ToCharacterSign()} ");
                 }
@@ -21,7 +21,7 @@ namespace Data
             //write additional info file
             using (StreamWriter writer = new StreamWriter(additionalInfoPath))
             {
-                writer.WriteLine(solution.Length);
+                writer.WriteLine(solution.Moves.Count);
                 writer.WriteLine(solution.VisitedStatesCounter);
                 writer.WriteLine(solution.ProcessedStatesCounter);
                 writer.WriteLine(solution.MaxRecursion);

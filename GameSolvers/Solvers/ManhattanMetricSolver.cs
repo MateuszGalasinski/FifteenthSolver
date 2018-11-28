@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using GameSolvers.Solvers.Base;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,21 +64,5 @@ namespace GameSolvers.Solvers
                 return Math.Abs(index.y - board.YLength) + Math.Abs(index.x - board.XLength); // TODO: check if it shouldn't be -1
             }
         }
-
-
-        private class DuplicateKeyComparer<TKey> : IComparer<TKey> where TKey : struct, IComparable
-        {
-
-            public int Compare(TKey x, TKey y)
-            {
-                int result = x.CompareTo(y);
-
-                if (result == 0)
-                    return 1;  
-                else
-                    return result;
-            }
-        }
     }
-
 }

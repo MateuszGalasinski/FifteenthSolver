@@ -1,5 +1,7 @@
 ﻿using Data;
+using GameSolvers;
 using GameSolvers.Solvers;
+using GameSolvers.Solvers.Base;
 using Model;
 using SolverConsoleApp.Models;
 using System;
@@ -16,10 +18,10 @@ namespace SolverConsoleApp
             Loader loader = new Loader();
             Board board = loader.LoadState(parameters.StartFilePath);
             IGameSolver solver = GetSolver(parameters);
-            solver.Solve(board);
+            Solution solution = solver.Solve(board);
             
             Writer writer = new Writer();
-            writer.WriteSolution(parameters.SolutionFilePath, parameters.AdditionalFilePath, solver.Solution);
+            writer.WriteSolution(parameters.SolutionFilePath, parameters.AdditionalFilePath, solution);
         }
 
         private static AppParameters ParseParameters(string[] args)
@@ -95,7 +97,7 @@ namespace SolverConsoleApp
                 case StrategyType.DFS:
                     return new DFSSolver(parameters.SearchOrder, 30);
                 case StrategyType.BFS:
-                    return new BFSSolver();
+                    return new BFSSolver(parameters.SearchOrder);
                 case StrategyType.ASTR:
                     if (parameters.MetricType == MetricType.HAMM)
                     {

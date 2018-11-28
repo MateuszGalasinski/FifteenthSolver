@@ -7,6 +7,8 @@ namespace SolversTests.BidirectionalSolver
 {
     public class BidirectionalSolverTests : Given_BidirectionalGameSolver
     {
+        [TestCase("DFS")]
+        [TestCase("BFS")]
         [TestCase("Manhattan")]
         public void OneStep_ShouldBeSolved(string solverName)
         {
@@ -20,9 +22,11 @@ namespace SolversTests.BidirectionalSolver
 
             var history = Solver.Solve(board);
 
-            history.Should().BeEquivalentTo(new List<Direction>(new []{ Direction.Right }));
+            history.Moves.Should().BeEquivalentTo(new List<Direction>(new []{ Direction.Right }));
         }
 
+        [TestCase("DFS")]
+        [TestCase("BFS")]
         [TestCase("Manhattan")]
         public void TwoSteps_ShouldBeSolved(string solverName)
         {
@@ -36,9 +40,11 @@ namespace SolversTests.BidirectionalSolver
 
             var history = Solver.Solve(board);
 
-            history.Should().BeEquivalentTo(new List<Direction>(new[] { Direction.Right, Direction.Right }));
+            history.Moves.Should().BeEquivalentTo(new List<Direction>(new[] { Direction.Right, Direction.Right }));
         }
 
+        [TestCase("DFS")]
+        [TestCase("BFS")]
         [TestCase("Manhattan")]
         public void ManySteps_ShouldBeSolved(string solverName)
         {
@@ -52,9 +58,11 @@ namespace SolversTests.BidirectionalSolver
 
             var history = Solver.Solve(board);
 
-            history.Should().BeEquivalentTo(new List<Direction>(new[] { Direction.Right, Direction.Right, Direction.Down}));
+            history.Moves.Should().BeEquivalentTo(new List<Direction>(new[] { Direction.Right, Direction.Right, Direction.Down}));
         }
 
+        [TestCase("DFS")]
+        [TestCase("BFS")]
         [TestCase("Manhattan")]
         public void ManySteps_Size4_ShouldBeSolved(string solverName)
         {
@@ -69,7 +77,7 @@ namespace SolversTests.BidirectionalSolver
 
             var history = Solver.Solve(board);
 
-            history.Should().BeEquivalentTo(new List<Direction>(new[] { Direction.Right, Direction.Right, Direction.Right }));
+            history.Moves.Should().BeEquivalentTo(new List<Direction>(new[] { Direction.Right, Direction.Right, Direction.Right }));
         }
     }
 }

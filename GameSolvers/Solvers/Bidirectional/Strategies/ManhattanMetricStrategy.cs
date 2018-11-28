@@ -1,39 +1,40 @@
-﻿using GameSolvers.Solvers.Bidirectional;
+﻿using GameSolvers.Solvers.Bidirectional.Strategies.Base;
 using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GameSolvers.Solvers
+namespace GameSolvers.Solvers.Bidirectional.Strategies
 {
 
-    public class ManhattanMetricStrategy : IStrategy
+    public class ManhattanMetricStrategy : BaseStrategy, IStrategy
     {
-        public readonly HashSet<Board> CheckedBoards = new HashSet<Board>(new BoardValuesEqualityComparer());
-        public readonly SortedList<int, Board> SolutionsToSearch = new SortedList<int, Board>(new DuplicateKeyComparer<int>());
+        private readonly SortedList<int, Board> _solutionsToSearch = new SortedList<int, Board>(new DuplicateKeyComparer<int>());
 
         public bool HasRemainingChild()
         {
-            return SolutionsToSearch.Count != 0;
+            return _solutionsToSearch.Count != 0;
         }
+
+        public int RemainingCount => _solutionsToSearch.Count;
 
         public void AddChildren(Board current)
         {
             foreach (var direction in current.PossibleMoves)
             {
                 Board newBoard = current.GenerateChild(direction);
-                SolutionsToSearch.Add(CalculatePriority(newBoard), newBoard);
+                _solutionsToSearch.Add(CalculatePriority(newBoard), newBoard);
             }
         }
 
         public Board GetNextChild()
         {
-            while (CheckedBoards.Contains(SolutionsToSearch.First().Value))
+            while (CheckedBoards.Contains(_solutionsToSearch.First().Value))
             {
-                SolutionsToSearch.RemoveAt(0);
+                _solutionsToSearch.RemoveAt(0);
             }
-            var first = SolutionsToSearch.First();
-            SolutionsToSearch.RemoveAt(0);
+            var first = _solutionsToSearch.First();
+            _solutionsToSearch.RemoveAt(0);
             return first.Value;
         }
 
@@ -63,21 +64,6 @@ namespace GameSolvers.Solvers
             else
             {
                 return Math.Abs(index.y - board.YLength) + Math.Abs(index.x - board.XLength); // TODO: check if it shouldn't be -1
-            }
-        }
-
-
-        private class DuplicateKeyComparer<TKey> : IComparer<TKey> where TKey : struct, IComparable
-        {
-
-            public int Compare(TKey x, TKey y)
-            {
-                int result = x.CompareTo(y);
-
-                if (result == 0)
-                    return 1;  
-                else
-                    return result;
             }
         }
     }

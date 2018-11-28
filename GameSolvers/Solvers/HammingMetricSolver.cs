@@ -1,5 +1,5 @@
-﻿using Model;
-using System;
+﻿using GameSolvers.Solvers.Base;
+using Model;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +7,8 @@ namespace GameSolvers.Solvers
 {
     public class HammingMetricSolver : BaseSolver
     {
-        private readonly SortedList<int, Board> _solutionsToSearch = new SortedList<int, Board>(new DuplicateKeyComparer<int>());
+        private readonly SortedList<int, Board> _solutionsToSearch =
+            new SortedList<int, Board>(new DuplicateKeyComparer<int>());
 
         protected override bool HasRemainingChild()
         {
@@ -29,6 +30,7 @@ namespace GameSolvers.Solvers
             {
                 _solutionsToSearch.RemoveAt(0);
             }
+
             var first = _solutionsToSearch.First();
             _solutionsToSearch.RemoveAt(0);
             return first.Value;
@@ -46,24 +48,10 @@ namespace GameSolvers.Solvers
                     correctValue++;
                 }
             }
+
             distanceSum += board.Fields[board.YLength - 1][board.XLength - 1] == 0 ? 0 : 1;
 
             return distanceSum;
         }
-
-        private class DuplicateKeyComparer<TKey> : IComparer<TKey> where TKey : struct, IComparable
-        {
-
-            public int Compare(TKey x, TKey y)
-            {
-                int result = x.CompareTo(y);
-
-                if (result == 0)
-                    return 1;  
-                else
-                    return result;
-            }
-        }
     }
-
 }

@@ -1,4 +1,8 @@
 ﻿using GameSolvers.Solvers;
+using GameSolvers.Solvers.Bidirectional;
+using GameSolvers.Solvers.Bidirectional.Strategies;
+using Model;
+using System.Collections.Generic;
 
 namespace SolversTests.BidirectionalSolver
 {
@@ -12,6 +16,32 @@ namespace SolversTests.BidirectionalSolver
             {
                 case "Manhattan":
                     Solver = new BidirectionalBaseSolver(new ManhattanMetricStrategy(), new ManhattanMetricStrategy());
+                    break;
+                case "BFS":
+                    Solver = new BidirectionalBaseSolver(
+                        new BFSStrategy(
+                            new List<Direction>()
+                            {
+                                Direction.Right, Direction.Down, Direction.Left, Direction.Top 
+                            }), 
+                        new BFSStrategy(
+                            new List<Direction>()
+                            {
+                                Direction.Top, Direction.Left, Direction.Down, Direction.Right
+                            }));
+                    break;
+                case "DFS":
+                    Solver = new BidirectionalBaseSolver(
+                        new DFSStrategy(
+                            new List<Direction>()
+                            {
+                                Direction.Right, Direction.Down, Direction.Left, Direction.Top
+                            }, 30), 
+                        new DFSStrategy(
+                            new List<Direction>()
+                            {
+                                Direction.Top, Direction.Left, Direction.Down, Direction.Right
+                            }, 30));
                     break;
             }
         }

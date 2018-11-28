@@ -1,12 +1,13 @@
-﻿using System.Diagnostics;
-using Model;
+﻿using Model;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace GameSolvers
 {
     public class Solution
     {
-        public Board EndBoard { get; set; }
-        public int Length { get; set; }
+        public bool IsSolved { get; set; }
+        public List<Direction> Moves { get; set; }
         public int ProcessedStatesCounter { get; set; }
         public int VisitedStatesCounter { get; set; }
         public int MaxRecursion { get; set; }

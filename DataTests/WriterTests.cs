@@ -1,5 +1,6 @@
 ﻿using Data;
 using FluentAssertions;
+using GameSolvers;
 using GameSolvers.Solvers;
 using Model;
 using NUnit.Framework;
@@ -29,9 +30,9 @@ namespace DataTests
                 new int[] {0, 13, 14, 15},
             });
 
-            Board newBoard = Solver.Solve(board);
+            Solution solution = Solver.Solve(board);
 
-            newBoard.IsSolved().Should().BeTrue();
+            solution.IsSolved.Should().BeTrue();
 
             Writer writer = new Writer();
             string solutionFilePath = Path.Combine(
@@ -40,7 +41,7 @@ namespace DataTests
             string additionalFilePath = Path.Combine(
                 Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName,
                 @"testAdditionalInfo.txt");
-            writer.WriteSolution(solutionFilePath, additionalFilePath, Solver.Solution);
+            writer.WriteSolution(solutionFilePath, additionalFilePath, solution);
         }
     }
 }

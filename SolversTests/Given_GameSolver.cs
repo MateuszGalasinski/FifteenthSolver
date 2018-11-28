@@ -1,4 +1,5 @@
 ﻿using GameSolvers.Solvers;
+using GameSolvers.Solvers.Base;
 using Model;
 using System.Collections.Generic;
 
@@ -13,7 +14,11 @@ namespace SolversTests
             switch (solverName)
             {
                 case "BFT":
-                    Solver = new BFSSolver();
+                    Solver = new BFSSolver(new List<Direction>()
+                    {
+                        Direction.Right, Direction.Down, Direction.Left, Direction.Top ,
+
+                    });
                     break;
                 case "DFT":
                     Solver = new DFSSolver(

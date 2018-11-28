@@ -1,16 +1,18 @@
 ﻿using GameSolvers.Extensions;
+using GameSolvers.Solvers.Bidirectional.Strategies.Base;
 using Model;
 using System;
 using System.Collections.Generic;
 
-namespace GameSolvers.Solvers
+namespace GameSolvers.Solvers.Bidirectional
 {
     public class BidirectionalBaseSolver
     {
-        private readonly ManhattanMetricStrategy _forwardSolverStrategy;
-        private readonly ManhattanMetricStrategy _backwardSolverStrategy;
+        private readonly IStrategy _forwardSolverStrategy;
+        private readonly IStrategy _backwardSolverStrategy;
+        private bool _areBothTreesExpandable = true;
 
-        public BidirectionalBaseSolver(ManhattanMetricStrategy forwardSolverStrategy, ManhattanMetricStrategy backwardSolverStrategy)
+        public BidirectionalBaseSolver(IStrategy forwardSolverStrategy, IStrategy backwardSolverStrategy)
         {
             _forwardSolverStrategy = forwardSolverStrategy ?? throw new ArgumentNullException(nameof(forwardSolverStrategy));
             _backwardSolverStrategy = backwardSolverStrategy ?? throw new ArgumentNullException(nameof(backwardSolverStrategy));
@@ -18,37 +20,96 @@ namespace GameSolvers.Solvers
 
         public Solution Solution { get; set; } = new Solution();
 
-        public List<Direction> Solve(Board forwardBoard)
+        public Solution Solve(Board forwardBoard)
         {
+            Solution.Timer.Start();
+            if (forwardBoard.IsSolved())
+            {
+                Solution.Moves = new List<Direction>();
+                Solution.ProcessedStatesCounter = 1;
+                Solution.VisitedStatesCounter = 1;
+                Solution.Timer.Stop();
+                return Solution;
+            }
             Board backwardBoard = GenerateSolvedBoard(forwardBoard.YLength, forwardBoard.XLength);
-            _forwardSolverStrategy.CheckedBoards.Add(forwardBoard);
-            _backwardSolverStrategy.CheckedBoards.Add(backwardBoard);
             while (true)
             {
                 //move forward tree
                 _forwardSolverStrategy.CheckedBoards.Add(forwardBoard);
                 _forwardSolverStrategy.AddChildren(forwardBoard);
-                forwardBoard = _forwardSolverStrategy.GetNextChild();
+                if (_forwardSolverStrategy.HasRemainingChild())
+                {
+                    forwardBoard = _forwardSolverStrategy.GetNextChild();
+                }
+                else
+                {
+                    if (_areBothTreesExpandable)
+                        _areBothTreesExpandable = false;
+                    else
+                    {
+                        Solution.IsSolved = false;
+                        break;
+                    }
+                }
 
                 //move backward tree
                 _backwardSolverStrategy.CheckedBoards.Add(backwardBoard);
                 _backwardSolverStrategy.AddChildren(backwardBoard);
-                backwardBoard = _backwardSolverStrategy.GetNextChild();
+
+                if (_backwardSolverStrategy.HasRemainingChild())
+                {
+                    backwardBoard = _backwardSolverStrategy.GetNextChild();
+                }
+                else
+                {
+                    if (_areBothTreesExpandable)
+                        _areBothTreesExpandable = false;
+                    else
+                    {
+                        Solution.IsSolved = false;
+                        break;
+                    }
+                }
+
+                Solution.MaxRecursion = Math.Max(
+                    Solution.MaxRecursion,
+                    Math.Max(forwardBoard.MovesHistory.Count, backwardBoard.MovesHistory.Count));
 
                 //check for solution
-                if (_forwardSolverStrategy.CheckedBoards.Contains(backwardBoard)) // it is solved
+                if (_forwardSolverStrategy.CheckedBoards.TryGetValue(backwardBoard, out Board forwardSolved)) // backward met any forward
                 {
-                    //concatenate two boards histories
-                    _forwardSolverStrategy.CheckedBoards.TryGetValue(backwardBoard, out Board forwardSolved);
-                    List<Direction> solutionMoves = new List<Direction>(forwardSolved.MovesHistory);
-                    backwardBoard.MovesHistory.Reverse();
-                    foreach (var direction in backwardBoard.MovesHistory)
-                    {
-                        solutionMoves.Add(direction.OppositeDirection());
-                    }
-                    return solutionMoves;
+                    GenerateSolution(forwardSolved, backwardBoard);
+                    break;
+                }
+                if (_backwardSolverStrategy.CheckedBoards.TryGetValue(forwardBoard, out Board backwardSolved)) // forward met any backward
+                {
+                    GenerateSolution(forwardBoard, backwardSolved);
+                    break;
                 }
             }
+            Solution.Timer.Stop();
+            return Solution;
+        }
+
+        private void GenerateSolution(Board forwardBoard, Board backwardSolved)
+        {
+            List<Direction> solutionMoves = new List<Direction>(forwardBoard.MovesHistory);
+            backwardSolved.MovesHistory.Reverse();
+            foreach (var direction in backwardSolved.MovesHistory)
+            {
+                solutionMoves.Add(direction.OppositeDirection());
+            }
+
+            SaveMetadata(solutionMoves);
+        }
+
+        private void SaveMetadata(List<Direction> solutionMoves)
+        {
+            Solution.ProcessedStatesCounter = _forwardSolverStrategy.CheckedBoards.Count + _backwardSolverStrategy.CheckedBoards.Count;
+            Solution.VisitedStatesCounter = Solution.ProcessedStatesCounter +
+                                            _forwardSolverStrategy.RemainingCount +
+                                            _backwardSolverStrategy.RemainingCount;
+            Solution.Moves = solutionMoves;
         }
 
         private Board GenerateSolvedBoard(int yLength, int xLength)

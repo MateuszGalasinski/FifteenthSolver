@@ -1,17 +1,18 @@
-﻿using GameSolvers.Solvers.Base;
+﻿using GameSolvers.Solvers.Bidirectional.Strategies.Base;
 using Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace GameSolvers.Solvers
 {
-    public class DFSSolver : BaseSolver
+    public class DFSStrategy : BaseStrategy, IStrategy
     {
         private readonly Stack<Board> _solutionsToSearch = new Stack<Board>();
+        private int MaxDepthSearch { get; set; } = 1;
+
         protected List<Direction> SearchOrder;
 
-        public DFSSolver(List<Direction> searchOrder, int maxDepthSearch)
+        public DFSStrategy(List<Direction> searchOrder, int maxDepthSearch)
         {
             SearchOrder = searchOrder;
             SearchOrder.Reverse(); // adding to stack should go in reversed order
@@ -19,12 +20,13 @@ namespace GameSolvers.Solvers
             MaxDepthSearch = maxDepthSearch;
         }
 
-        protected override void AddChildren(Board current)
+        public int RemainingCount => _solutionsToSearch.Count;
+
+        public void AddChildren(Board current)
         {
             if (CurrentDepthSearch < MaxDepthSearch)
             {
                 CurrentDepthSearch++;
-                Solution.MaxRecursion = Math.Max(Solution.MaxRecursion, current.MovesHistory.Count);
 
                 foreach (var direction in SearchOrder.Where(current.PossibleMoves.Contains))
                 {
@@ -33,12 +35,12 @@ namespace GameSolvers.Solvers
             }
         }
 
-        protected override bool HasRemainingChild()
+        public bool HasRemainingChild()
         {
             return _solutionsToSearch.Count != 0;
         }
 
-        protected override Board GetNextChild()
+        public Board GetNextChild()
         {
             while (CheckedBoards.Contains(_solutionsToSearch.Peek()))
             {

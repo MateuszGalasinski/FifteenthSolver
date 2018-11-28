@@ -1,27 +1,29 @@
-﻿using GameSolvers.Solvers.Base;
+﻿using GameSolvers.Solvers.Bidirectional.Strategies.Base;
 using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GameSolvers.Solvers
+namespace GameSolvers.Solvers.Bidirectional.Strategies
 {
-    public class BFSSolver : BaseSolver
+    public class BFSStrategy : BaseStrategy, IStrategy
     {
         private readonly Queue<Board> _solutionsToSearch = new Queue<Board>();
         protected List<Direction> SearchOrder;
 
-        public BFSSolver(List<Direction> searchOrder)
+        public BFSStrategy(List<Direction> searchOrder)
         {
             SearchOrder = searchOrder ?? throw new ArgumentNullException(nameof(searchOrder));
         }
 
-        protected override bool HasRemainingChild()
+        public bool HasRemainingChild()
         {
             return _solutionsToSearch.Count != 0;
         }
 
-        protected override void AddChildren(Board current)
+        public int RemainingCount => _solutionsToSearch.Count;
+
+        public void AddChildren(Board current)
         {
             foreach (var direction in SearchOrder.Where(current.PossibleMoves.Contains))
             {
@@ -29,7 +31,7 @@ namespace GameSolvers.Solvers
             }
         }
 
-        protected override Board GetNextChild()
+        public Board GetNextChild()
         {
             while (CheckedBoards.Contains(_solutionsToSearch.Peek()))
             {

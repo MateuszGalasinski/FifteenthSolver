@@ -1,17 +1,16 @@
 ﻿using Model;
 using System.Collections.Generic;
 
-namespace GameSolvers.Solvers
+namespace GameSolvers.Solvers.Base
 {
     public abstract class BaseSolver : IGameSolver
     {
-        protected List<Direction> SearchOrder = new List<Direction>() { Direction.Right, Direction.Down, Direction.Left, Direction.Top };
         protected HashSet<Board> CheckedBoards = new HashSet<Board>(new BoardValuesEqualityComparer());
         public Solution Solution { get; set; } = new Solution();
         protected int MaxDepthSearch { get; set; } = 1;
         protected int CurrentDepthSearch { get; set; }
 
-        public Board Solve(Board board)
+        public Solution Solve(Board board)
         {
             Solution.Timer.Start();
             Initialize(board, out Board current);
@@ -31,13 +30,13 @@ namespace GameSolvers.Solvers
                 }
             }
 
+            Solution.IsSolved = current.IsSolved();
             Solution.ProcessedStatesCounter = CheckedBoards.Count;
             Solution.MaxRecursion = CurrentDepthSearch;
-            Solution.Length = current.MovesHistory.Count;
-            Solution.EndBoard = current;
+            Solution.Moves = current.MovesHistory;
 
             Solution.Timer.Stop();
-            return current;
+            return Solution;
         }
 
         protected abstract bool HasRemainingChild();

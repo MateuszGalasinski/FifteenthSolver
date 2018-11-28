@@ -42,16 +42,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DuplicateKeyComparer.cs" />
     <Compile Include="Extensions\DirectionExtensions.cs" />
     <Compile Include="Solution.cs" />
-    <Compile Include="Solvers\BaseSolver.cs" />
+    <Compile Include="Solvers\Base\BaseSolver.cs" />
     <Compile Include="Solvers\BFSSolver.cs" />
+    <Compile Include="Solvers\Bidirectional\Strategies\Base\BaseStrategy.cs" />
     <Compile Include="Solvers\Bidirectional\BidirectionalBaseSolver.cs" />
-    <Compile Include="Solvers\Bidirectional\IStrategy.cs" />
-    <Compile Include="Solvers\Bidirectional\ManhattanMetricStrategy.cs" />
+    <Compile Include="Solvers\Bidirectional\Strategies\BFSStrategy.cs" />
+    <Compile Include="Solvers\Bidirectional\Strategies\Base\IStrategy.cs" />
+    <Compile Include="Solvers\Bidirectional\Strategies\DFSStrategy.cs" />
+    <Compile Include="Solvers\Bidirectional\Strategies\ManhattanMetricStrategy.cs" />
     <Compile Include="Solvers\DFSSolver.cs" />
     <Compile Include="Exceptions\InvalidBoardException.cs" />
-    <Compile Include="Solvers\IGameSolver.cs" />
+    <Compile Include="Solvers\Base\IGameSolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Solvers\HammingMetricSolver.cs" />
     <Compile Include="Solvers\ManhattanMetricSolver.cs" />

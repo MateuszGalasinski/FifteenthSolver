@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using GameSolvers;
 using Model;
 using NUnit.Framework;
 
@@ -20,9 +21,9 @@ namespace SolversTests
                 new int[] {7, 0, 8},
             });
 
-            Board newBoard = Solver.Solve(board);
+            Solution solution = Solver.Solve(board);
 
-            newBoard.IsSolved().Should().BeTrue();
+            solution.IsSolved.Should().BeTrue();
         }
 
         [TestCase("BFT")]
@@ -39,9 +40,9 @@ namespace SolversTests
                 new int[] {0, 7, 8},
             });
 
-            Board newBoard = Solver.Solve(board);
+            Solution solution = Solver.Solve(board);
 
-            newBoard.IsSolved().Should().BeTrue();
+            solution.IsSolved.Should().BeTrue();
         }
 
         [TestCase("BFT")]
@@ -58,9 +59,9 @@ namespace SolversTests
                 new int[] {7, 8, 6},
             });
 
-            Board newBoard = Solver.Solve(board);
+            Solution solution = Solver.Solve(board);
 
-            newBoard.IsSolved().Should().BeTrue();
+            solution.IsSolved.Should().BeTrue();
         }
 
         [TestCase("BFT")]
@@ -78,9 +79,9 @@ namespace SolversTests
                 new int[] {0, 13, 14, 15},
             });
 
-            Board newBoard = Solver.Solve(board);
+            Solution solution = Solver.Solve(board);
 
-            newBoard.IsSolved().Should().BeTrue();
+            solution.IsSolved.Should().BeTrue();
         }
     }
 }
