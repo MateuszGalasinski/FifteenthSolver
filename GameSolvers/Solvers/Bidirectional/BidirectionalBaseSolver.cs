@@ -112,9 +112,8 @@ namespace GameSolvers.Solvers.Bidirectional
         private void SaveMetadata()
         {
             Solution.VisitedStatesCounter = _forwardSolverStrategy.CheckedBoards.Count + _backwardSolverStrategy.CheckedBoards.Count;
-            Solution.ProcessedStatesCounter = Solution.VisitedStatesCounter +
-                                            _forwardSolverStrategy.RemainingCount +
-                                            _backwardSolverStrategy.RemainingCount;
+            Solution.ProcessedStatesCounter = _forwardSolverStrategy.ProcessedStatesCounter +
+                                              _backwardSolverStrategy.ProcessedStatesCounter;
             Solution.Timer.Stop();
         }
 

@@ -22,14 +22,18 @@ namespace GameSolvers.Solvers.Bidirectional.Strategies
             return _solutionsToSearch.Count != 0;
         }
 
-        public int RemainingCount => _solutionsToSearch.Count;
-
         public void AddChildren(Board current)
         {
-            foreach (var direction in current.PossibleMoves)
+            List<Direction> moves = current.PossibleMoves;
+            ProcessedStatesCounter += moves.Count;
+
+            foreach (var direction in moves)
             {
                 Board newBoard = current.GenerateChild(direction);
-                _solutionsToSearch.Add(_metricCalculator.CalculatePriority(newBoard), newBoard);
+                if (!CheckedBoards.Contains(newBoard))
+                {
+                    _solutionsToSearch.Add(_metricCalculator.CalculatePriority(newBoard), newBoard);
+                }
             }
         }
 

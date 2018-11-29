@@ -21,13 +21,18 @@ namespace GameSolvers.Solvers.Bidirectional.Strategies
             return _solutionsToSearch.Count != 0;
         }
 
-        public int RemainingCount => _solutionsToSearch.Count;
-
         public void AddChildren(Board current)
         {
-            foreach (var direction in SearchOrder.Where(current.PossibleMoves.Contains))
+            List<Direction> moves = current.PossibleMoves;
+            ProcessedStatesCounter += moves.Count;
+
+            foreach (var direction in SearchOrder.Where(moves.Contains))
             {
-                _solutionsToSearch.Enqueue(current.GenerateChild(direction));
+                Board child = current.GenerateChild(direction);
+                if (!CheckedBoards.Contains(child))
+                {
+                    _solutionsToSearch.Enqueue(child);
+                }
             }
         }
 

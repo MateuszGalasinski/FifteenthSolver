@@ -9,7 +9,6 @@ namespace GameSolvers.Solvers
     {
         private readonly Stack<Board> _solutionsToSearch = new Stack<Board>();
         private int MaxDepthSearch { get; set; } = 1;
-
         protected List<Direction> SearchOrder;
 
         public DFSStrategy(List<Direction> searchOrder, int maxDepthSearch)
@@ -20,13 +19,14 @@ namespace GameSolvers.Solvers
             MaxDepthSearch = maxDepthSearch;
         }
 
-        public int RemainingCount => _solutionsToSearch.Count;
-
         public void AddChildren(Board current)
         {
-            if (current.PossibleMoves.Count < MaxDepthSearch)
+            if (current.MovesHistory.Count < MaxDepthSearch)
             {
-                foreach (var direction in SearchOrder.Where(current.PossibleMoves.Contains))
+                List<Direction> moves = current.PossibleMoves;
+                ProcessedStatesCounter += moves.Count;
+
+                foreach (var direction in SearchOrder.Where(moves.Contains))
                 {
                     _solutionsToSearch.Push(current.GenerateChild(direction));
                 }

@@ -5,6 +5,7 @@ namespace GameSolvers.Solvers.Bidirectional.Strategies.Base
 {
     public abstract class BaseStrategy
     {
-        public HashSet<Board> CheckedBoards { get; private set; } = new HashSet<Board>(new BoardValuesEqualityComparer());
+        public HashSet<Board> CheckedBoards { get; } = new HashSet<Board>(new BoardValuesEqualityComparer());
+        public int ProcessedStatesCounter { get; protected set; } = 0;
     }
 }
