@@ -28,6 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		BoardsScripts\puzzleval.jar = BoardsScripts\puzzleval.jar
 		BoardsScripts\puzzlevis.jar = BoardsScripts\puzzlevis.jar
 		BoardsScripts\runprog.ps1 = BoardsScripts\runprog.ps1
+		BoardsScripts\boards\runprog.ps1 = BoardsScripts\boards\runprog.ps1
 		BoardsScripts\runval.ps1 = BoardsScripts\runval.ps1
 	EndProjectSection
 EndProject

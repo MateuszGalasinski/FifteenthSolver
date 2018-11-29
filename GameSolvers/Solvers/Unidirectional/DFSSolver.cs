@@ -36,15 +36,15 @@ namespace GameSolvers.Solvers.Unidirectional
 
         protected override bool HasRemainingChild()
         {
+            while (_solutionsToSearch.Count != 0 && CheckedBoards.Contains(_solutionsToSearch.Peek()))
+            {
+                _solutionsToSearch.Pop();
+            }
             return _solutionsToSearch.Count != 0;
         }
 
         protected override Board GetNextChild()
         {
-            while (CheckedBoards.Contains(_solutionsToSearch.Peek()))
-            {
-                _solutionsToSearch.Pop();
-            }
             return _solutionsToSearch.Pop();
         }
     }

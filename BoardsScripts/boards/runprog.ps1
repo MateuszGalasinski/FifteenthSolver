@@ -23,7 +23,7 @@
 
 param([string]$strategy, [string]$param)
 
-$Progcmd = '..\SolverConsoleApp\bin\Release\SolverConsoleApp.exe'
+$Progcmd = '..\..\SolverConsoleApp\bin\Release\SolverConsoleApp.exe'
 $Orders = @('RDUL', 'RDLU', 'DRUL', 'DRLU', 'LUDR',  'LURD', 'ULDR', 'ULRD')
 $Heuristics = @('hamm', 'manh')
 $InitFilenameRegex = '^[a-zA-Z0-9]+_[0-9]+_[0-9]+.txt$'
@@ -94,8 +94,8 @@ function RunBDForEach([string]$strategy, [string]$param) {
 }
 
 function RunAll() {
-   # RunBfs
-	RunDfs
+	#RunBfs
+	#RunDfs
 	RunAstr
 	RunBD
 }

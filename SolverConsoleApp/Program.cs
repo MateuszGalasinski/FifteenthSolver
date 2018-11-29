@@ -17,7 +17,7 @@ namespace SolverConsoleApp
 {
     class Program
     {
-        private const int DFSMaxDepthSearch = 40;
+        private const int DFSMaxDepthSearch = 25;
 
         static void Main(string[] args)
         {
