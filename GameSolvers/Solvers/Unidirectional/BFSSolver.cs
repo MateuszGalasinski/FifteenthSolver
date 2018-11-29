@@ -11,8 +11,6 @@ namespace GameSolvers.Solvers.Unidirectional
         private readonly Queue<Board> _solutionsToSearch = new Queue<Board>();
         protected List<Direction> SearchOrder;
 
-        protected override int RemainingCount => _solutionsToSearch.Count;
-
         public BFSSolver(List<Direction> searchOrder)
         {
             SearchOrder = searchOrder ?? throw new ArgumentNullException(nameof(searchOrder));

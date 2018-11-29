@@ -16,7 +16,7 @@ namespace Data
                 case Direction.Left:
                     return "L";
                 case Direction.Top:
-                    return "T";
+                    return "U";
                 default:
                     throw new ArgumentException($"Cannot map direction: {direction} to any character");
             }
@@ -32,7 +32,7 @@ namespace Data
                     return Direction.Down;
                 case 'L':
                     return Direction.Left;
-                case 'T':
+                case 'U':
                     return Direction.Top;
                 default:
                     throw new ArgumentException($"Cannot map character: {directionCharacter} to any direction");

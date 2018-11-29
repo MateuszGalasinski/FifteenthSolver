@@ -10,8 +10,6 @@ namespace GameSolvers.Solvers.Unidirectional.Base
         public Solution Solution { get; set; } = new Solution();
         protected int MaxDepthSearch { get; set; } = 1;
 
-        protected abstract int RemainingCount { get; }
-
         public Solution Solve(Board board)
         {
             Solution.Timer.Start();

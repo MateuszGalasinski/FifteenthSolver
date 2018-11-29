@@ -10,8 +10,6 @@ namespace GameSolvers.Solvers.Unidirectional
         private readonly Stack<Board> _solutionsToSearch = new Stack<Board>();
         protected List<Direction> SearchOrder;
 
-        protected override int RemainingCount => _solutionsToSearch.Count;
-
         public DFSSolver(List<Direction> searchOrder, int maxDepthSearch)
         {
             SearchOrder = searchOrder;
@@ -36,10 +34,6 @@ namespace GameSolvers.Solvers.Unidirectional
 
         protected override bool HasRemainingChild()
         {
-            while (_solutionsToSearch.Count != 0 && CheckedBoards.Contains(_solutionsToSearch.Peek()))
-            {
-                _solutionsToSearch.Pop();
-            }
             return _solutionsToSearch.Count != 0;
         }
 

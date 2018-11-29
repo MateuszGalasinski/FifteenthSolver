@@ -12,8 +12,6 @@ namespace GameSolvers.Solvers.Unidirectional
         private readonly IMetricCalculator _metricCalculator;
         private readonly SortedList<int, Board> _solutionsToSearch = new SortedList<int, Board>(new DuplicateKeyComparer<int>());
 
-        protected override int RemainingCount => _solutionsToSearch.Count;
-
         public MetricSolver(IMetricCalculator metricCalculator)
         {
             _metricCalculator = metricCalculator ?? throw new ArgumentNullException(nameof(metricCalculator));

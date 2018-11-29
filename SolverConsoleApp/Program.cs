@@ -17,7 +17,7 @@ namespace SolverConsoleApp
 {
     class Program
     {
-        private const int DFSMaxDepthSearch = 25;
+        private const int DFSMaxDepthSearch = 4;
 
         static void Main(string[] args)
         {
@@ -149,7 +149,7 @@ namespace SolverConsoleApp
             switch (parameters.StrategyTypes.First())
             {
                 case StrategyType.DFS:
-                    return new DFSSolver(parameters.SearchOrders.First(), 30);
+                    return new DFSSolver(parameters.SearchOrders.First(), DFSMaxDepthSearch);
 
                 case StrategyType.BFS:
                     return new BFSSolver(parameters.SearchOrders.First());
