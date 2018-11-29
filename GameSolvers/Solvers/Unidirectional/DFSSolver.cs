@@ -1,15 +1,16 @@
-﻿using GameSolvers.Solvers.Base;
+﻿using GameSolvers.Solvers.Unidirectional.Base;
 using Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GameSolvers.Solvers
+namespace GameSolvers.Solvers.Unidirectional
 {
     public class DFSSolver : BaseSolver
     {
         private readonly Stack<Board> _solutionsToSearch = new Stack<Board>();
         protected List<Direction> SearchOrder;
+
+        protected override int RemainingCount => _solutionsToSearch.Count;
 
         public DFSSolver(List<Direction> searchOrder, int maxDepthSearch)
         {
@@ -21,12 +22,12 @@ namespace GameSolvers.Solvers
 
         protected override void AddChildren(Board current)
         {
-            if (CurrentDepthSearch < MaxDepthSearch)
+            if (current.MovesHistory.Count < MaxDepthSearch)
             {
-                CurrentDepthSearch++;
-                Solution.MaxRecursion = Math.Max(Solution.MaxRecursion, current.MovesHistory.Count);
+                List<Direction> moves = current.PossibleMoves;
+                Solution.ProcessedStatesCounter += moves.Count;
 
-                foreach (var direction in SearchOrder.Where(current.PossibleMoves.Contains))
+                foreach (var direction in SearchOrder.Where(moves.Contains))
                 {
                     _solutionsToSearch.Push(current.GenerateChild(direction));
                 }

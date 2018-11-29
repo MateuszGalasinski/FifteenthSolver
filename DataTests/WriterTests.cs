@@ -1,7 +1,7 @@
 ﻿using Data;
 using FluentAssertions;
 using GameSolvers;
-using GameSolvers.Solvers;
+using GameSolvers.Solvers.Unidirectional;
 using Model;
 using NUnit.Framework;
 using System;

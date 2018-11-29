@@ -1,11 +1,12 @@
 ﻿using Data;
 using GameSolvers;
 using GameSolvers.Solvers;
-using GameSolvers.Solvers.Base;
 using GameSolvers.Solvers.Bidirectional;
 using GameSolvers.Solvers.Bidirectional.Strategies;
 using GameSolvers.Solvers.Bidirectional.Strategies.Base;
 using GameSolvers.Solvers.Metrics;
+using GameSolvers.Solvers.Unidirectional;
+using GameSolvers.Solvers.Unidirectional.Base;
 using Model;
 using SolverConsoleApp.Models;
 using System;
@@ -16,6 +17,8 @@ namespace SolverConsoleApp
 {
     class Program
     {
+        private const int DFSMaxDepthSearch = 40;
+
         static void Main(string[] args)
         {
             AppParameters parameters = ParseParameters(args);
@@ -176,11 +179,11 @@ namespace SolverConsoleApp
         {
             if (parameters.StrategyTypes[index + 1] == StrategyType.DFS)
             {
-                return new DFSStrategy(parameters.SearchOrders.First(), 30);
+                return new DFSStrategy(parameters.SearchOrders[index], DFSMaxDepthSearch);
             }
             if (parameters.StrategyTypes[index + 1] == StrategyType.BFS)
             {
-                return new BFSStrategy(parameters.SearchOrders.First());
+                return new BFSStrategy(parameters.SearchOrders[index]);
             }
             if (parameters.StrategyTypes[index + 1] == StrategyType.ASTR)
             {

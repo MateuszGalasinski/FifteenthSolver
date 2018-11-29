@@ -1,6 +1,6 @@
-﻿using GameSolvers.Solvers;
-using GameSolvers.Solvers.Base;
-using GameSolvers.Solvers.Metrics;
+﻿using GameSolvers.Solvers.Metrics;
+using GameSolvers.Solvers.Unidirectional;
+using GameSolvers.Solvers.Unidirectional.Base;
 using Model;
 using System.Collections.Generic;
 

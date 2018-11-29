@@ -1,6 +1,6 @@
 ﻿using Model;
 
-namespace GameSolvers.Solvers.Base
+namespace GameSolvers.Solvers.Unidirectional.Base
 {
     public interface IGameSolver
     {

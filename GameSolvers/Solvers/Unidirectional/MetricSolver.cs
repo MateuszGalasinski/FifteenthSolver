@@ -1,16 +1,18 @@
-﻿using GameSolvers.Solvers.Base;
-using GameSolvers.Solvers.Metrics;
+﻿using GameSolvers.Solvers.Metrics;
+using GameSolvers.Solvers.Unidirectional.Base;
 using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GameSolvers.Solvers
+namespace GameSolvers.Solvers.Unidirectional
 {
     public class MetricSolver : BaseSolver
     {
         private readonly IMetricCalculator _metricCalculator;
         private readonly SortedList<int, Board> _solutionsToSearch = new SortedList<int, Board>(new DuplicateKeyComparer<int>());
+
+        protected override int RemainingCount => _solutionsToSearch.Count;
 
         public MetricSolver(IMetricCalculator metricCalculator)
         {
@@ -24,10 +26,16 @@ namespace GameSolvers.Solvers
 
         protected override void AddChildren(Board current)
         {
-            foreach (var direction in current.PossibleMoves)
+            List<Direction> moves = current.PossibleMoves;
+            Solution.ProcessedStatesCounter += moves.Count;
+
+            foreach (var direction in moves)
             {
                 Board newBoard = current.GenerateChild(direction);
-                _solutionsToSearch.Add(_metricCalculator.CalculatePriority(newBoard), newBoard);
+                if (!CheckedBoards.Contains(newBoard))
+                {
+                    _solutionsToSearch.Add(_metricCalculator.CalculatePriority(newBoard), newBoard);
+                }
             }
         }
 

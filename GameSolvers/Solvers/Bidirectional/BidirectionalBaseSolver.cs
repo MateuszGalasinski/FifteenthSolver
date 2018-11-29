@@ -1,6 +1,6 @@
 ﻿using GameSolvers.Extensions;
-using GameSolvers.Solvers.Base;
 using GameSolvers.Solvers.Bidirectional.Strategies.Base;
+using GameSolvers.Solvers.Unidirectional.Base;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -28,8 +28,8 @@ namespace GameSolvers.Solvers.Bidirectional
             if (forwardBoard.IsSolved())
             {
                 Solution.Moves = new List<Direction>();
-                Solution.ProcessedStatesCounter = 1;
                 Solution.VisitedStatesCounter = 1;
+                Solution.ProcessedStatesCounter = 1;
                 Solution.Timer.Stop();
                 return Solution;
             }
@@ -111,8 +111,8 @@ namespace GameSolvers.Solvers.Bidirectional
 
         private void SaveMetadata()
         {
-            Solution.ProcessedStatesCounter = _forwardSolverStrategy.CheckedBoards.Count + _backwardSolverStrategy.CheckedBoards.Count;
-            Solution.VisitedStatesCounter = Solution.ProcessedStatesCounter +
+            Solution.VisitedStatesCounter = _forwardSolverStrategy.CheckedBoards.Count + _backwardSolverStrategy.CheckedBoards.Count;
+            Solution.ProcessedStatesCounter = Solution.VisitedStatesCounter +
                                             _forwardSolverStrategy.RemainingCount +
                                             _backwardSolverStrategy.RemainingCount;
             Solution.Timer.Stop();

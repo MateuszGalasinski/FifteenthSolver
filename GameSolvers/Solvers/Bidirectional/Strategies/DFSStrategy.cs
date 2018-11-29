@@ -24,10 +24,8 @@ namespace GameSolvers.Solvers
 
         public void AddChildren(Board current)
         {
-            if (CurrentDepthSearch < MaxDepthSearch)
+            if (current.PossibleMoves.Count < MaxDepthSearch)
             {
-                CurrentDepthSearch++;
-
                 foreach (var direction in SearchOrder.Where(current.PossibleMoves.Contains))
                 {
                     _solutionsToSearch.Push(current.GenerateChild(direction));
