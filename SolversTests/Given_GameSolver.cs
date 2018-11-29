@@ -25,9 +25,9 @@ namespace SolversTests
                     Solver = new DFSSolver(
                         new List<Direction>()
                         {
-                            Direction.Right, Direction.Down, Direction.Left, Direction.Top ,
+                            Direction.Left, Direction.Top, Direction.Down, Direction.Right ,
 
-                        }, 30);
+                        }, 25);
                     break;
                 case "Manhattan":
                     Solver = new MetricSolver(new ManhattanMetricCalculator());
